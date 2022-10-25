@@ -8,8 +8,8 @@ html {
     scroll-behavior: smooth;
 }
 :root {
-    --main-color :#1e3d59;
-    --second-color : #f5f0e1;
+    --main-color :#ffff;
+    --second-color : black;
 }
 body {
     overflow-x: hidden;
@@ -42,11 +42,12 @@ a {
     justify-content: space-between;
 }
 .top {
-    background-color: transparent;
+    background-color: none;
     position: fixed;
     width: 100%;
     z-index: 99;
     transition: all 0.5s ease 0s;
+    opacity: 1;
 }
 .top.sticky{
     background-color:var(--main-color);
@@ -197,30 +198,42 @@ a {
 }
 .background .background-content h2 {
     font-size: 47px;
-    color: #FACC2E;
+    color: #ffffff;
     font-family: 'Permanent Marker', cursive;
 }
 .background .background-content p {
     font-size: 30px;
-    color:#FACC2E;
+    color:#ffffff;
     font-weight: bold;
     margin: 15px 0;
     font-weight: bold;
     font-family: 'Caveat', cursive;
 }
  .btn {
-    border: 2px solid #FACC2E;
+    border: 2px solid #ffffff;
     border-radius: 10px ;
     background-color: transparent;
     padding: 10px 30px;
-    color:#FACC2E ;
+    color:#ffffff ;
     transition: all .3s ease;
     cursor: pointer;
 }
 .btn:hover {
-    background-color:#D8D8D8;
     border: none;
-    color: #000000;
+    z-index: -1;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    opacity: 1;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
 
@@ -244,11 +257,11 @@ a {
 }
 .about .about-item h2 {
     font-size: 20px;
-    color:#F5D0A9;
+    color:#000000;
 }
 .about .about-item p{
     font-size: 15px;
-    color:#F5D0A9;
+    color:#000000;
     margin: 15px 0 30px;
     text-align: justify;
 }
@@ -295,38 +308,38 @@ a {
 /*-----------------------------------------SIGNUP-------------------------------------------------*/
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
+.signup-input input{
+    display: block;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: #000000 solid .01px;
+    padding: 10px;
 }
-
-/* Add a background color when the inputs get focus */
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
+.signup-input input:hover{
+    border: #000000 solid .01px;
+    padding: 10px;
+    color: #088A85;
 }
-
 /* Set a style for all buttons */
 .signup-button button {
-  background-color: var(--main-color);
-  color: 	var(--second-color);
+  background-color: #CCCCCC;
+  color:#000000;
   padding: 14px 20px;
   margin: 8px 0;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   width: 100%;
-  opacity: 0.9;
+  opacity: 0.7;
   font-size: 17px;
 }
 
 .signup-button button:hover {
   opacity:1;
-  background-color:#A4A4A4;
+  background-color:#99CCCC;
   color: white;
 }
 
@@ -375,9 +388,9 @@ input[type=text]:focus, input[type=password]:focus {
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
   padding-top: 50px;
+  background-color: #1e3d59;
+  padding: 50px 400px 50px 300px;
 }
 
 /* Modal Content/Box */
@@ -386,6 +399,7 @@ input[type=text]:focus, input[type=password]:focus {
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 10px;
 }
 
 /* Style the horizontal ruler */
@@ -424,21 +438,21 @@ hr {
 
 }
 .login-button button {
-    background-color: var(--main-color);
-    color: 	var(--second-color);
+    background-color: #CCCCCC;
+    color: 	#000000;
     padding: 14px 20px;
     margin: 8px 0;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     width: 100%;
-    opacity: 0.9;
+    opacity: 0.7;
     font-size: 17px;
   }
   
   .login-button button:hover {
     opacity:1;
-    background-color:#A4A4A4;
+    background-color:#99CCCC;
     color: white;
   }
   .logout-button {
@@ -469,6 +483,7 @@ hr {
     background-color:#A4A4A4;
     color: white;
   }
+  
 /*-------------------------------------------MENU------------------------------------------*/
 
 .menu {
@@ -486,7 +501,7 @@ hr {
     margin: 10px 12px;
     border: none;
     font-size: 20px;
-    color: #F5D0A9;
+    color: #000000;
     cursor: pointer;
     align-items: center;
     padding-bottom: 40px;
@@ -529,12 +544,12 @@ hr {
 }
 
 .list-item p { 
-   color: #F5D0A9;
+   color: #000000;
    transition: all .3s ease;
    font-size: 20px;
 }
 .list-price p {
-    color: #F5D0A9;
+    color: #000000;
     transition: all .3s ease;
     font-size: 20px;
 }
@@ -628,9 +643,13 @@ hr {
     border-radius: 10px;
     transform: translateY(40%);
     transition: all 0.5s ease;
+    
 }
 .room-items-text h2 {
     color:black;
+}
+.room-items-text p{
+    color: black;
 }
 /*-------------------------------------------BOOKING---------------------------------------------*/
 form {
