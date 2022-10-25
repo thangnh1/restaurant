@@ -27,7 +27,25 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIEN RESTAURANT</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../frontend/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="..vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="..vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="..vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="..vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="..vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="./webstyle.css">
+    <link rel="stylesheet" href="./login.css">
     <link rel="stylesheet" href="../frontend/res.css">
     <link rel="stylesheet" href="../fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrer-policy="no-referrer" />
@@ -47,19 +65,20 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
                     <div class="signup-button">
                         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">SIGN UP</button>
                     </div>
-
                     <div id="id01" class="modal">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
                         <form class="modal-content" action="../include/index.php" method="post">
                             <h1>Welcome To Kien Restaurant</h1>
                             <p>Please fill in this form to create an account.</p>
                             <hr>
-                            <input type="text" placeholder="Full name" name="kh_fullname" required>
-                            <input type="text" placeholder="Enter your phone" name="kh_sdt" required>
-                            <input type="text" placeholder="Enter your mail" name="kh_email" required>
-                            <input type="text" placeholder="Enter user name" name="kh_user" required>
-                            <input type="password" placeholder="Enter password" name="kh_password" required>
-                            <input type="password" placeholder="Repeat password" name="kh_repeatps" required>
+                            <div class="signup-input">
+                                <input type="text" placeholder="Full name" name="kh_fullname" required>
+                                <input type="text" placeholder="Enter your phone" name="kh_sdt" required>
+                                <input type="text" placeholder="Enter your mail" name="kh_email" required>
+                                <input type="text" placeholder="Enter user name" name="kh_user" required>
+                                <input type="password" placeholder="Enter password" name="kh_password" required>
+                                <input type="password" placeholder="Repeat password" name="kh_repeatps" required>
+                            </div>
 
                             <label>
                                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
@@ -76,30 +95,70 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
                         </form>
                     </div>
                 </div>
-                <div class="login">
-                    <div class="login-button">
-                        <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">LOG IN</button>
-                    </div>
-
-                    <div id="id02" class="modal">
-                        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="modal-content" action="./login.php" method="post">
-                            <h1>Welcome To Kien Restaurant</h1>
-                            <hr>
-                            <input type="text" placeholder="Enter Email/Phone" name="kh_user" required>
-                            <input type="password" placeholder="Enter Password" name="kh_password" required>
-
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
-                                Remember me
-                            </label><br>
-                            Forgot Password <a href="#">[Click here]</a>
-                            <div class="clearfix">
-                                <button type="submit" class="loginbtn" name="dangnhap_home">Log In</button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="login">
+                <div class="login-button">
+                    <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">LOG IN</button>
                 </div>
+
+            <div id="id02" class="modal">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                        title="Close Modal">&times;</span>
+                <form class="login100-form validate-form flex-sb flex-w">
+                    <span class="login100-form-title p-b-53">
+						Sign In With
+					</span>
+                    <div class="orther-btn">
+                        <a href="#" class="btn-face m-b-20">
+                            <i class="fa fa-facebook-official"></i>
+                            Facebook
+                        </a>
+                        <a href="#" class="btn-google m-b-20">
+                            <img src="../frontend/icons/icon-google.png" alt="GOOGLE">
+                            Google
+                        </a>
+                    </div>
+					<div class="p-t-31 p-b-9">
+						<span class="txt1">
+							Username
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Username is required">
+						<input class="input100" type="text" name="username" >
+						<span class="focus-input100"></span>
+					</div>
+					
+					<div class="p-t-13 p-b-9">
+						<span class="txt1">
+							Password
+						</span>
+
+						<a href="#" class="txt2 bo1 m-l-5">
+							Forgot?
+						</a>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" >
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn ">
+						<button class="login100-form-btn">
+							Log In
+						</button>
+					</div>
+
+					<div class="w-full text-center p-t-55">
+						<span class="txt2">
+							Not a member?
+						</span>
+
+						<a href="#" class="txt2 bo1">
+							Sign up now
+						</a>
+					</div>
+				</form>
+            </div>
+    </div>
                 <div class="menu-bar">
                     <span></span>
                 </div>
@@ -218,6 +277,7 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
             <?php
             }
             ?> 
+        </div>
     </section>
 
 
@@ -324,6 +384,7 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
     </section>
 
     <script src="./webscript.js"></script>
+    <script src="./main.js"></script>
     <script>
         AOS.init();
         // Get the modal
@@ -336,6 +397,19 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
             }
         }
     </script>
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
 </body>
 
 </html>
