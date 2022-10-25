@@ -1,5 +1,30 @@
 <?php
-include('../db/connect.php');
+session_start();
+include "../db/connect.php";
+if (isset($_POST['dangnhap_home'])) {
+    $kh_user = $_POST['kh_user'];
+    $kh_password = md5($_POST['kh_password']);
+    if ($kh_user == '' || $kh_password == '') {
+        echo '<script language="javascript">';
+        echo 'alert("Please enter full bro!")';
+        echo '</script>';
+    } else {
+        $sql_select_dangnhap = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user' AND kh_password='$kh_password'");
+        $count = mysqli_num_rows($sql_select_dangnhap);
+        $row_login = mysqli_fetch_array($sql_select_dangnhap);
+        if ($count > 0) {
+            $_SESSION['dangnhap_home'] = $row_login['kh_fullname'];
+            $_SESSION['khachhang_id'] = $row_login['khachhang_id'];
+        } else {
+            echo '<script language="javascript">';
+            echo 'alert("Something wrong with your user name or password!")';
+            echo '</script>';
+        }
+    }
+    echo '<script language="javascript">';
+    echo 'alert("Chào mừng bạn đã đến với Kien Restaurant!")';
+    echo '</script>';
+}
 ?>
 <?php
 if (!isset($_SESSION['dangnhap_home'])) {
@@ -15,23 +40,6 @@ if ($logout == 'logout') {
     header('Location: index.php');
 }
 ?>
-<?php
-if (isset($_POST['booking'])) {
-    $madonhang = rand(0,9999);
-    $occasion = $_POST['occasion'];
-    $food_name = $_POST['food_name'];
-    $loaiban = $_POST['loaiban'];
-    $kh_name = $_POST['kh_name'];
-    $kh_phone = $_POST['kh_phone'];
-    $songuoi = $_POST['songuoi'];
-    $ngaythang = $_POST['ngaythang'];
-    $gio = $_POST['gio'];
-
-$sql_insert_donhang = mysqli_query($con,"INSERT INTO tbl_donhang(madonhang,ngaythang,loaiban,songuoi,food_name,occasion,gio,kh_name,kh_phone)
-values('$madonhang','$ngaythang','$loaiban','$songuoi','$food_name','$occasion','$gio','$kh_name','$kh_phone')");
-$check = mysqli_query($con,$sql_insert_donhang);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,9 +49,8 @@ $check = mysqli_query($con,$sql_insert_donhang);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIEN RESTAURANT</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="../frontend/res.css">
-    <link rel="stylesheet" href="./webstyle.css">
-    <link rel="stylesheet" href="../fonts/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/webstyle.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrer-policy="no-referrer" />
     <script>
         src = "https://kit.fontawesome.com/54f0cb7e4a.js";
@@ -56,15 +63,14 @@ $check = mysqli_query($con,$sql_insert_donhang);
     <section class="top">
         <div class="container">
             <div class="row justify-content">
-                <div class="logo"><img src="../frontend/image/logo.png" alt=""></div>
+                <div class="logo"><img src="../image/logo.png" alt=""></div>
                 <div class="logout">
                     <p>XIN CHÀO : <?php echo $_SESSION['dangnhap_home'] ?> </p>
-                    <button class="logout-button"><a href="?loginn=logout">LOG OUT</a></button>
+                    <a href="?loginn=logout"> <button class="logout-button">LOG OUT</button></a>
                 </div>
                 <div class="menu-bar">
                     <span></span>
                 </div>
-                
                 <div class="menu-items">
                     <ul>
                         <a href="#home">Home</a><br>
@@ -113,7 +119,7 @@ $check = mysqli_query($con,$sql_insert_donhang);
                 <div class="about-item" data-aos="fade-up-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="about-item-img">
                         <span>+10 years of experience</span>
-                        <img src="../frontend/image/content1.jpg" alt="">
+                        <img src="../image/content1.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -161,11 +167,11 @@ $check = mysqli_query($con,$sql_insert_donhang);
                     ?>
                         <div class="list-items">
                             <div class="list-item">
-                                <img src="../upload/<?php echo $row_product['sanpham_image'] ?>" alt="">
+                                <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
                                 <p><?php echo $row_product['sanpham_name'] ?></p>
                             </div>
                             <div class="list-price">
-                                <p><?php echo $row_product['sanpham_gia']?>$</p>
+                                <p><?php echo $row_product['sanpham_gia'] ?>$</p>
                             </div>
                         </div>
                     <?php
@@ -190,27 +196,27 @@ $check = mysqli_query($con,$sql_insert_donhang);
         <div class="some-foods container row">
             <div class="some-foods-item">
                 <h2>Pan-fried Salmon</h2>
-                <img src="../frontend/image/br1.jpg" alt="">
+                <img src="../image/br1.jpg" alt="">
             </div>
             <div class="some-foods-item">
                 <h2>Vegetarian Salad </h2>
-                <img src="../frontend/image/br2.jpg" alt="">
+                <img src="../image/br2.jpg" alt="">
             </div>
             <div class="some-foods-item">
                 <h2>Chicken Breast Salad</h2>
-                <img src="../frontend/image/br3.jpg" alt="">
+                <img src="../image/br3.jpg" alt="">
             </div>
             <div class="some-foods-item">
                 <h2>Goose Breast</h2>
-                <img src="../frontend/image/br4.jpg" alt="">
+                <img src="../image/br4.jpg" alt="">
             </div>
             <div class="some-foods-item">
                 <h2>Dessert</h2>
-                <img src="../frontend/image/br5.jpg" alt="">
+                <img src="../image/br5.jpg" alt="">
             </div>
             <div class="some-foods-item">
                 <h2>Vegetarian Sandwich</h2>
-                <img src="../frontend/image/sandwich.jpg" alt="">
+                <img src="../image/sandwich.jpg" alt="">
             </div>
         </div>
     </section>
@@ -224,21 +230,21 @@ $check = mysqli_query($con,$sql_insert_donhang);
             </div>
             <div class="row">
                 <div class="room-items">
-                    <img src="../frontend/image/room1.jpg" alt="">
+                    <img src="../image/room1.jpg" alt="">
                     <div class="room-items-text">
                         <h2>COUPLE</h2>
                         <p>Capacity 2-3 peoples,suitable for Couple</p>
                     </div>
                 </div>
                 <div class="room-items">
-                    <img src="../frontend/image/family.jpg" alt="">
+                    <img src="../image/family.jpg" alt="">
                     <div class="room-items-text">
                         <h2>FAMILY</h2>
                         <p>Capacity 8-10 peoples,suitable for Family</p>
                     </div>
                 </div>
                 <div class="room-items">
-                    <img src="../frontend/image/vip2.jpg" alt="">
+                    <img src="../image/vip2.jpg" alt="">
                     <div class="room-items-text">
                         <h2>VIP</h2>
                         <p>Capacity 10-15 peoples.Completely private room. Separate entrance. Private party menu options
@@ -259,13 +265,13 @@ $check = mysqli_query($con,$sql_insert_donhang);
                 </div>
             </div>
             <div class="booking-form">
-                <form action="" method="post">
+                <form action="./myweb.php" method="post">
                     <h1>BOOKING FORM</h1>
                     <p>PLEASE FILL OUT ALL FIELDS. THANKS!</p>
                     <div class="row justify-content">
                         <div class="booking-form-item">
-                        <label for="occasion" name="occasion"></label>
-                        <p>Occasion</p>
+                            <label for="occasion" name="occasion"></label>
+                            <p>Occasion</p>
                             <select id="occasion" name="occasion" required>
                                 <option value="Occasion"> Occasion</option>
                                 <option value="Birthday"> Birthday</option>
@@ -278,20 +284,24 @@ $check = mysqli_query($con,$sql_insert_donhang);
                             <input type="text" placeholder="Food" id="food_name" name="food_name" required>
                         </div>
                         <div class="booking-form-item">
-                            <p>Room you want to use<p>
-                            <input type="text" placeholder="Room" id="loaiban" name="loaiban" required>
+                            <p>Room you want to use
+                            <p>
+                                <input type="text" placeholder="Room" id="loaiban" name="loaiban" required>
                         </div>
                         <div class="booking-form-item">
-                             <p>Your name<p>
-                            <input type="text" placeholder="Name" id="kh_name" name="kh_name" required>
+                            <p>Your name
+                            <p>
+                                <input type="text" placeholder="Name" id="kh_name" name="kh_name" required>
                         </div>
                         <div class="booking-form-item">
-                            <p>Your number<p>
-                            <input type="text" placeholder="Contact No." id="kh_phone" name="kh_phone" required>
+                            <p>Your number
+                            <p>
+                                <input type="text" placeholder="Contact No." id="kh_phone" name="kh_phone" required>
                         </div>
                         <div class="booking-form-item">
-                            <p>Number of guests<p>
-                            <input type="number" placeholder="Quantity" id="songuoi" name="songuoi" required>
+                            <p>Number of guests
+                            <p>
+                                <input type="number" placeholder="Quantity" id="songuoi" name="songuoi" required>
                         </div>
                         <div class="booking-form-item">
                             <p>Day you will come</p>
@@ -344,7 +354,7 @@ $check = mysqli_query($con,$sql_insert_donhang);
         </div>
     </section>
 
-    <script src="./webscript.js"></script>
+    <script src="../assets/js/webscript.js"></script>
     <script>
         AOS.init();
         // Get the modal
