@@ -3,18 +3,57 @@ session_start();
 include('../db/connect.php')
 ?>
 <?php
+/*if(isset($_SESSION['passupdate'])){
+    echo '<script language="javascript">';
+    echo 'alert("Password updated")';
+    echo '</script>';
+}*/
+if (isset($_SESSION['dangnhap_home'])) {
+    echo '<script language="javascript">';
+    echo 'alert("Sai mật khẩu hoặc tài khoản!")';
+    echo '</script>';
+    session_destroy(); 
+}
 if (isset($_POST['dangky_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
     $kh_fullname = $_POST['kh_fullname'];
     $kh_sdt = $_POST['kh_sdt'];
     $kh_email = $_POST['kh_email'];
-    $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
-values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
-    $check = mysqli_query($con, $sql_insert_dangky);
-    echo '<script language="javascript">';
-    echo 'alert("Bạn đã đăng ký thành công!")';
-    echo '</script>';
+
+    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
+	$count = mysqli_num_rows($check);
+    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
+	$count1 = mysqli_num_rows($check);  
+    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
+	$count2 = mysqli_num_rows($check);  
+    if($count > 0){     
+        if($count1 > 0 && $count2 > 0){
+            echo '<script language="javascript">';
+            echo 'alert("Email and ID has already been used!")';
+            echo '</script>';
+        }
+                
+        if($count1 > 0 && $count2  <= 0){
+            echo '<script language="javascript">';
+            echo 'alert("Email has already been used!")';
+            echo '</script>';
+        }
+        if($count2 > 0 && $count1  <= 0){
+            echo '<script language="javascript">';
+            echo 'alert("ID has already been used!")';
+            echo '</script>';
+        }                                                
+    }   
+    else{
+        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
+        values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
+            //$check = mysqli_query($con, $sql_insert_dangky);
+            //$check = $sql_insert_dangky;
+            echo '<script language="javascript">';
+            echo 'alert("Bạn đã đăng ký thành công!")';
+            echo '</script>';
+    }  
 }
 ?>
 
@@ -52,7 +91,7 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
                     </div>
                     <div id="id01" class="modal">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="modal-content" action="../include/index.php" method="post">
+                        <form class="modal-content" action="index.php" method="post">
                             <h1>Welcome To Kien Restaurant</h1>
                             <p>Please fill in this form to create an account.</p>
                             <hr>
@@ -115,7 +154,7 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
                                 <span class="txt1">
                                     Password
                                 </span>
-                                <a href="#" class="txt2 bo1 m-l-5">
+                                <a href="forgotpass.php" class="txt2 bo1 m-l-5">
                                     Forgot?
                                 </a>
                             </div>
@@ -234,18 +273,18 @@ values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
                 <div class="menu-content " id="<?php echo $row_category['category_id'] ?>">
                     <?php
                     $id = $row_category['category_id'];
-                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_sanpham WHERE category_id = $id ");
+                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_monan WHERE category_id = $id ");
                     ?>
                     <?php
                     while ($row_product = mysqli_fetch_array($sql_product)) {
                     ?>
                         <div class="list-items">
                             <div class="list-item">
-                                <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <p><?php echo $row_product['sanpham_name'] ?></p>
+                                <img src="../image/<?php echo $row_product['monan_image'] ?>" alt="">
+                                <p><?php echo $row_product['tenmon'] ?></p>
                             </div>
                             <div class="list-price">
-                                <p><?php echo $row_product['sanpham_gia'] ?>$</p>
+                                <p><?php echo $row_product['giamonan'] ?>$</p>
                             </div>
                         </div>
                     <?php

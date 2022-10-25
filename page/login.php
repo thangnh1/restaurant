@@ -6,7 +6,7 @@ if (isset($_POST['dangnhap_home'])) {
     $kh_password = md5($_POST['kh_password']);
     if ($kh_user == '' || $kh_password == '') {
         echo '<script language="javascript">';
-        echo 'alert("Please enter full bro!")';
+        echo 'alert("Tài khoản hoặc mật khẩu không được để trống!")';
         echo '</script>';
     } else {
         $sql_select_dangnhap = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user' AND kh_password='$kh_password'");
@@ -28,7 +28,8 @@ if (isset($_POST['dangnhap_home'])) {
 ?>
 <?php
 if (!isset($_SESSION['dangnhap_home'])) {
-    header('Location: login.php');
+    $_SESSION['dangnhap_home'] = 'Sai mật khẩu hoặc tài khoản';
+    header('Location: index.php');  
 }
 if (isset($_GET['loginn'])) {
     $logout = $_GET['loginn'];
@@ -39,6 +40,7 @@ if ($logout == 'logout') {
     session_destroy();
     header('Location: index.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
