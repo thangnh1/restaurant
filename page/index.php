@@ -12,7 +12,7 @@ if (isset($_SESSION['dangnhap_home'])) {
     echo '<script language="javascript">';
     echo 'alert("Sai mật khẩu hoặc tài khoản!")';
     echo '</script>';
-    session_destroy(); 
+    session_destroy();
 }
 if (isset($_POST['dangky_home'])) {
     $kh_user = $_POST['kh_user'];
@@ -22,38 +22,37 @@ if (isset($_POST['dangky_home'])) {
     $kh_email = $_POST['kh_email'];
 
     $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
-	$count = mysqli_num_rows($check);
+    $count = mysqli_num_rows($check);
     $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
-	$count1 = mysqli_num_rows($check);  
+    $count1 = mysqli_num_rows($check);
     $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
-	$count2 = mysqli_num_rows($check);  
-    if($count > 0){     
-        if($count1 > 0 && $count2 > 0){
+    $count2 = mysqli_num_rows($check);
+    if ($count > 0) {
+        if ($count1 > 0 && $count2 > 0) {
             echo '<script language="javascript">';
             echo 'alert("Email and ID has already been used!")';
             echo '</script>';
         }
-                
-        if($count1 > 0 && $count2  <= 0){
+
+        if ($count1 > 0 && $count2  <= 0) {
             echo '<script language="javascript">';
             echo 'alert("Email has already been used!")';
             echo '</script>';
         }
-        if($count2 > 0 && $count1  <= 0){
+        if ($count2 > 0 && $count1  <= 0) {
             echo '<script language="javascript">';
             echo 'alert("ID has already been used!")';
             echo '</script>';
-        }                                                
-    }   
-    else{
+        }
+    } else {
         $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
         values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
-            //$check = mysqli_query($con, $sql_insert_dangky);
-            //$check = $sql_insert_dangky;
-            echo '<script language="javascript">';
-            echo 'alert("Bạn đã đăng ký thành công!")';
-            echo '</script>';
-    }  
+        //$check = mysqli_query($con, $sql_insert_dangky);
+        //$check = $sql_insert_dangky;
+        echo '<script language="javascript">';
+        echo 'alert("Bạn đã đăng ký thành công!")';
+        echo '</script>';
+    }
 }
 ?>
 
@@ -273,19 +272,20 @@ if (isset($_POST['dangky_home'])) {
                 <div class="menu-content " id="<?php echo $row_category['category_id'] ?>">
                     <?php
                     $id = $row_category['category_id'];
-                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_monan WHERE category_id = $id ");
+                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_sanpham WHERE category_id = $id ");
                     ?>
                     <?php
                     while ($row_product = mysqli_fetch_array($sql_product)) {
                     ?>
                         <div class="list-items">
                             <div class="list-item">
-                                <img src="../image/<?php echo $row_product['monan_image'] ?>" alt="">
-                                <p><?php echo $row_product['tenmon'] ?></p>
+                                <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
+                                <p><?php echo $row_product['sanpham_name'] ?></p>
                             </div>
                             <div class="list-price">
-                                <p><?php echo $row_product['giamonan'] ?>$</p>
+                                <p><?php echo $row_product['sanpham_gia'] ?>$</p>
                             </div>
+                            <a href="addproduct.php?sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-plus"></i></a>
                         </div>
                     <?php
                     }
@@ -428,6 +428,35 @@ if (isset($_POST['dangky_home'])) {
     <script src="vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
     <script src="vendor/countdowntime/countdowntime.js"></script>
+
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: 'Login_KR',
+                cookie: true,
+                xfbml: true,
+                version: '{api-version}'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    </script>
 </body>
 
 </html>
