@@ -67,7 +67,6 @@ CREATE TABLE `tbl_chitietdondatban` (
 CREATE TABLE `tbl_dondatmon` (
   `madon` int(255) NOT NULL,
   `ngaythang` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `occasion` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `gio` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `kh_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kh_phone` int(100) NOT NULL,
