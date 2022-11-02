@@ -29,7 +29,7 @@ if (isset($_POST['dangnhap_home'])) {
 <?php
 if (!isset($_SESSION['dangnhap_home'])) {
     $_SESSION['dangnhap_home'] = 'Sai mật khẩu hoặc tài khoản';
-    header('Location: index.php');
+    header('Location: index.php');  
 }
 if (isset($_GET['loginn'])) {
     $logout = $_GET['loginn'];
@@ -175,7 +175,6 @@ if ($logout == 'logout') {
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
                             </div>
-                            <a href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-cart-plus"></i></a>
                         </div>
                     <?php
                     }
@@ -369,32 +368,6 @@ if ($logout == 'logout') {
                 modal.style.display = "none";
             }
         }
-    </script>
-
-
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '{your-app-id}',
-                cookie: true,
-                xfbml: true,
-                version: '{api-version}'
-            });
-
-            FB.AppEvents.logPageView();
-
-        };
-
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 
