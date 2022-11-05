@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
     <div id="id02" class="modal">
         <form action="" method="POST">
             <input type="text" name="user" placeholder="Enter user" class="form-control" required>
-            <input align ="center" type="password" name="password" placeholder="Enter password" class="form-control" required>
+            <input type="password" name="password" placeholder="Enter password" class="form-control" required>
             <div class="clearfix">
                 <button type="submit" name="login" class="loginbtn">Log In</button>
             </div>

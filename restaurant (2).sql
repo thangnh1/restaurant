@@ -147,11 +147,9 @@ ALTER TABLE `tbl_dondatban`
 ALTER TABLE `tbl_dondatmon`
   ADD PRIMARY KEY (`madon`);
 
-ALTER TABLE `tbl_chitietdondatmon`
-  ADD PRIMARY KEY (`madon`);
 
-ALTER TABLE `tbl_chitietdondatban`
-  ADD PRIMARY KEY (`madondatban`);
+
+
 
 ALTER TABLE `tbl_monan`
   ADD PRIMARY KEY (`monan_id`);
@@ -180,3 +178,10 @@ ALTER TABLE `tbl_monan`
   MODIFY `monan_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
+
+INSERT INTO `tbl_dondatmon` (`madon`, `ngaythang`, `gio`, `kh_name`, `kh_phone`,`tinhtrang`) VALUES
+(1,'24/12/2022', 9, 'Trung', 0903700969, 0)
+
+
+INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
+(1,1,1)

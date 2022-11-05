@@ -39,7 +39,7 @@ if ($logout == 'logout') {
                     <a class="nav-link" href="xulysanpham.php">Sản Phẩm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Khách Hàng</a>
+                    <a class="nav-link" href="xulykhachhang.php">Khách Hàng</a>
                 </li>
             </ul>
         </div>

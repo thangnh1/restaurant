@@ -1,5 +1,6 @@
 <?php
 include('../db/connect.php');
+session_start();
 ?>
 <?php
 if (isset($_POST['capnhatdonhang'])) {
@@ -12,7 +13,7 @@ if (isset($_POST['capnhatdonhang'])) {
 <?php
 if (isset($_GET['xoadonhang'])) {
 	$madonhang = $_GET['xoadonhang'];
-	$sql_delete = mysqli_query($con, "DELETE FROM tbl_donhang WHERE madonhang='$madonhang'");
+	$sql_delete = mysqli_query($con, "DELETE FROM tbl_dondatmon WHERE madon='$madonhang'");
 	header('Location:xulydonhang.php');
 }
 if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
@@ -22,8 +23,8 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 	$huydon = '';
 	$magiaodich = '';
 }
-$sql_update_donhang = mysqli_query($con, "UPDATE tbl_donhang SET huydon='$huydon' WHERE madonhang='$magiaodich'");
-$sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huydon' WHERE magiaodich='$magiaodich'");
+//$sql_update_donhang = mysqli_query($con, "UPDATE tbl_donhang SET huydon='$huydon' WHERE madonhang='$magiaodich'");
+//$sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huydon' WHERE magiaodich='$magiaodich'");
 
 ?>
 <!DOCTYPE html>
@@ -32,10 +33,11 @@ $sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huyd
 <head>
 	<meta charset="UTF-8">
 	<title>Đơn hàng</title>
-	<link href="../bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../assets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
+<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
@@ -59,49 +61,42 @@ $sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huyd
 			<?php
 			if (isset($_GET['quanly']) == 'xemdonhang') {
 				$madonhang = $_GET['madonhang'];
-				$sql_chitiet = mysqli_query($con, "SELECT * FROM tbl_donhang WHERE madonhang='$madonhang'");
+				$sql_chitiet = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madonhang'");
 			?>
 				<div class="col-md-12">
 					<h4 align="center" >XEM CHI TIẾT ĐƠN HÀNG</h4>
 					<form action="" method="POST">
 						<table class="table table-bordered ">
 							<tr>
-								<th>Thứ tự</th>
 								<th>Mã đơn hàng</th>
-								<th>Tên khách đặt</th>
-								<th>SĐT khách đặt</th>
-								<th>Tên món ăn</th>
-								<th>Loại bàn</th>
-								<th>Số lượng khách</th>
-								<th>Ngày đặt</th>
-								<th>Dịp đặt</th>
+								<th>Món ăn</th>
+								<th>Số lượng</th>
+															
 							</tr>
-							<?php
-							$i = 0;
-							while ($row_donhang = mysqli_fetch_array($sql_chitiet)) {
-								$i++;
+							<?php							
+							while ($row_chitietdonhang = mysqli_fetch_array($sql_chitiet)) {
+							$id_monan = $row_chitietdonhang['monan_id'];
+							$row_monan	= mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$id_monan'");
+							$row_chitietmonan = mysqli_fetch_array($row_monan);
 							?>
 								<tr>
-									<td><?php echo $i; ?></td>
-									<td><?php echo $row_donhang['madonhang']; ?></td>
-									<td><?php echo $row_donhang['kh_name']; ?></td>
-									<td><?php echo $row_donhang['kh_phone']; ?></td>
-									<td><?php echo $row_donhang['food_name']; ?></td>
-									<td><?php echo $row_donhang['loaiban']; ?></td>
-									<td><?php echo $row_donhang['songuoi']; ?></td>
-									<td><?php echo $row_donhang['ngaythang']; ?></td>
-									<td><?php echo $row_donhang['occasion']; ?></td>
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madonhang'] ?>">
+
+									<td><?php echo $row_chitietdonhang['madon']; ?></td>
+
+									<td><?php echo $row_chitietmonan['tenmon']; ?></td>
+									<td><?php echo $row_chitietdonhang['soluong']; ?></td>
+									
+									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madon'] ?>">
 								</tr>
 							<?php
 							}
 							?>
 						</table>
 
-						<select class="form-control" name="xuly">
-							<option value="1">Đã xử lý</option>
-							<option value="0">Chưa xử lý</option>
-						</select><br>
+						
+						
+
+						
 						<input type="submit" value="Cập nhật đơn hàng" name="capnhatdonhang" class="btn btn-success">
 					</form>
 				</div>
@@ -118,7 +113,7 @@ $sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huyd
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT kh_name,ngaythang,madonhang,tinhtrang FROM tbl_donhang ");
+				$sql_select = mysqli_query($con, "SELECT kh_name,ngaythang,madon,tinhtrang FROM tbl_dondatmon ");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -136,7 +131,7 @@ $sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huyd
 					?>
 						<tr>
 							<td><?php echo $i; ?></td>
-							<td><?php echo $row_donhang['madonhang']; ?></td>
+							<td><?php echo $row_donhang['madon']; ?></td>
 							<td><?php
 								if ($row_donhang['tinhtrang'] == 0) {
 									echo 'Chưa xử lý';
@@ -146,13 +141,13 @@ $sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huyd
 								?></td>
 							<td><?php echo $row_donhang['kh_name']; ?></td>
 							<td><?php echo $row_donhang['ngaythang'] ?></td>
-							<td><a href="?xoadonhang=<?php echo $row_donhang['madonhang'] ?>">Xóa</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['madonhang'] ?>"> Xem chi tiết </a></td>
+							<td><a href="?xoadonhang=<?php echo $row_donhang['madon'] ?>">Xóa</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['madon'] ?>"> Xem chi tiết </a></td>
 						</tr>
 					<?php
 					}
 					?>
 				</table>
-			</div>
+			</div>			
 		</div>
 	</div>
 

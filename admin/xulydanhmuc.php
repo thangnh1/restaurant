@@ -1,5 +1,6 @@
 <?php
 include('../db/connect.php');
+session_start();
 ?>
 <?php
 if (isset($_POST['themdanhmuc'])) {
@@ -28,6 +29,7 @@ if (isset($_GET['xoa'])) {
 </head>
 
 <body>
+<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
