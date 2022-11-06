@@ -70,6 +70,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 							<tr>
 								<th>Mã đơn hàng</th>
 								<th>Món ăn</th>
+								<th>Đơn giá</th>
 								<th>Số lượng</th>
 															
 							</tr>
@@ -82,8 +83,8 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 								<tr>
 
 									<td><?php echo $row_chitietdonhang['madon']; ?></td>
-
 									<td><?php echo $row_chitietmonan['tenmon']; ?></td>
+									<td><?php echo $row_chitietmonan['giamonan']; ?>$</td>
 									<td><?php echo $row_chitietdonhang['soluong']; ?></td>
 									
 									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madon'] ?>">
@@ -108,12 +109,11 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 				</div>
 			<?php
 			}
-
 			?>
 			<div class="col-md-12">
-				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG</h4>
+				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG CHƯA XỬ LÍ</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT kh_name,ngaythang,madon,tinhtrang FROM tbl_dondatmon ");
+				$sql_select = mysqli_query($con, "SELECT kh_name,ngaythang,madon,tinhtrang FROM tbl_dondatmon WHERE tinhtrang = '0'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -122,11 +122,22 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 						<th>Tình trạng đơn hàng</th>
 						<th>Tên khách hàng</th>
 						<th>Ngày đặt</th>
+						<th>TỔNG TIỀN</th>
 						<th>Quản lý</th>
 					</tr>
 					<?php
 					$i = 0;
 					while ($row_donhang = mysqli_fetch_array($sql_select)) {
+						$madon = $row_donhang['madon'];
+						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon'");
+						$tong = 0;						
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
+							$monan_id = $row_chitiet['monan_id'];
+							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
+							$row_monan =  mysqli_fetch_array($sql_monan);
+							$giamon = $row_monan['giamonan'];
+							$tong +=  $giamon*$row_chitiet['soluong'];
+						}
 						$i++;
 					?>
 						<tr>
@@ -141,13 +152,66 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 								?></td>
 							<td><?php echo $row_donhang['kh_name']; ?></td>
 							<td><?php echo $row_donhang['ngaythang'] ?></td>
+							
+							<td><?php echo $tong ?>$</td>
 							<td><a href="?xoadonhang=<?php echo $row_donhang['madon'] ?>">Xóa</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['madon'] ?>"> Xem chi tiết </a></td>
 						</tr>
 					<?php
 					}
 					?>
 				</table>
-			</div>			
+			</div>	
+			
+			<div class="col-md-12">
+				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐÃ XỬ LÍ</h4>
+				<?php
+				$sql_select = mysqli_query($con, "SELECT kh_name,ngaythang,madon,tinhtrang FROM tbl_dondatmon WHERE tinhtrang = '1'");
+				?>
+				<table class="table table-bordered ">
+					<tr>
+						<th>Thứ tự</th>
+						<th>Mã đơn hàng</th>
+						<th>Tình trạng đơn hàng</th>
+						<th>Tên khách hàng</th>
+						<th>Ngày đặt</th>
+						<th>TỔNG TIỀN</th>
+						<th>Quản lý</th>
+					</tr>
+					<?php
+					$i = 0;
+					while ($row_donhang = mysqli_fetch_array($sql_select)) {
+						$madon = $row_donhang['madon'];
+						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon'");
+						$tong = 0;						
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
+							$monan_id = $row_chitiet['monan_id'];
+							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
+							$row_monan =  mysqli_fetch_array($sql_monan);
+							$giamon = $row_monan['giamonan'];
+							$tong +=  $giamon*$row_chitiet['soluong'];
+						}
+						$i++;
+					?>
+						<tr>
+							<td><?php echo $i; ?></td>
+							<td><?php echo $row_donhang['madon']; ?></td>
+							<td><?php
+								if ($row_donhang['tinhtrang'] == 0) {
+									echo 'Chưa xử lý';
+								} else {
+									echo 'Đã xử lý';
+								}
+								?></td>
+							<td><?php echo $row_donhang['kh_name']; ?></td>
+							<td><?php echo $row_donhang['ngaythang'] ?></td>
+							<td><?php echo $tong ?>$</td>
+							<td><a href="?xoadonhang=<?php echo $row_donhang['madon'] ?>">Xóa</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['madon'] ?>"> Xem chi tiết </a></td>
+						</tr>
+					<?php
+					}
+					?>
+				</table>
+			</div>	
 		</div>
 	</div>
 
