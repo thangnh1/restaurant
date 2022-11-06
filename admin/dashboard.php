@@ -29,6 +29,7 @@ if ($logout == 'logout') {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item active">
                     <a class="nav-link" href="xulydonhang.php">Đơn Hàng</a>
                 </li>
@@ -40,7 +41,7 @@ if ($logout == 'logout') {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="xulykhachhang.php">Khách Hàng</a>
-                </li>
+                </li>                               
             </ul>
         </div>
     </nav>
