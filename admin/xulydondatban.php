@@ -105,7 +105,8 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 								<th>Tên khách hàng hàng</th>
 								<th>SĐT khách hàng</th>
 								<th>NGÀY ĐẶT</th>
-                                <th>GIỜ</th>	
+                                <th>GIỜ</th>
+								<th>SỐ NGƯỜI</th>	
 								<th>QUẢN LÝ</th>					
 							</tr>
 							<?php
@@ -119,6 +120,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 									<td><?php echo $row_dondatban['kh_phone']; ?></td>
                                     <td><?php echo $row_dondatban['ngaythang']; ?></td>
                                     <td><?php echo $row_dondatban['gio']; ?></td>
+									<td><?php echo $row_dondatban['songuoi']; ?></td>
 									<td><a href="?xoadondatban=<?php echo $row_dondatban['madondatban'] ?>">Xóa</a></td>
 								</tr>
 							<?php
