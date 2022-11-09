@@ -97,7 +97,7 @@ a {
 .top .menu-bar span {
     height: 2px;
     width: 40px;
-    background-color: black;
+    background-color: slategray;
     display: block;
     position: relative;
     transition: all .01s ease;
@@ -107,7 +107,7 @@ a {
 .top .menu-bar span::before {
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: slategray;
     content: "";
     display: block;
     position: absolute;
@@ -116,7 +116,7 @@ a {
 .top .menu-bar span::after {
     height: 100%;
     width: 100%;
-    background-color:black;
+    background-color:slategray;
     content: "";
     display: block;
     position: absolute;
@@ -167,7 +167,7 @@ a {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("../../image/background.jpg");
+    background-image: url("../../image/background5.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -281,7 +281,7 @@ a {
     position: absolute;
     top: 45%;
     left: 150px;
-    color:#F6CEE3;
+    color:silver;
     font-family: 'Dancing Script', cursive;
     font-weight: 900;
     font-size: 30px;
@@ -308,20 +308,16 @@ a {
 /*-----------------------------------------SIGNUP-------------------------------------------------*/
 
 /* Full-width input fields */
+
 .signup-input input{
     display: block;
-    height: 100%;
+    height: 35%;
     width: 100%;
     font-size: 20px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: #000000 solid .01px;
-    padding: 10px;
-}
-.signup-input input:hover{
-    border: #000000 solid .01px;
-    padding: 10px;
-    color: #088A85;
+    padding: 0px;
 }
 /* Set a style for all buttons */
 .signup-button button {
@@ -343,37 +339,40 @@ a {
   color: white;
 }
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  margin: 8px 0;
-  background-color: #f44336;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-.cancelbtn:hover {
-    opacity: 1;
-}
-.signupbtn,.loginbtn {
-    background-color: #088A85;
+.signupbtn{
+    background-color: #00FFCC;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
-    opacity: 0.9;
+    opacity: 1;
+    border-radius: 10px;
 }
 
-.signupbtn,.loginbtn:hover {
+.signupbtn:hover {
+    background: #a64bf4;
+    background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
     opacity: 1;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    content: "";
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 /* Float cancel and signup buttons and add an equal width */
 .cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
+  float: center;
+  width: 30%;
+
 }
 .loginbtn {
     align-items: center;
@@ -401,7 +400,18 @@ a {
   width: 80%; /* Could be more or less, depending on screen size */
   border-radius: 10px;
 }
-
+.register-content {
+    background-color: silver;
+    border: none;
+    width: 80%; /* Could be more or less, depending on screen size */
+    
+}
+.signup-form{
+    background-color: silver;
+    align-items: center;
+    justify-content: center;
+    padding-left: 100px;
+}
 /* Style the horizontal ruler */
 hr {
   border: 1px solid #f1f1f1;
@@ -415,7 +425,7 @@ hr {
   top: 15px;
   font-size: 40px;
   font-weight: bold;
-  color: #f1f1f1;
+  color: silver;
 }
 .close:hover,
 .close:focus {
@@ -485,7 +495,7 @@ hr {
   }
   .cart a>i:hover {
     cursor: pointer;
-    color:#ffffff;
+    color:slategray;
   }
   .logout p {
       color: #B00000;
@@ -542,8 +552,12 @@ hr {
     left: 15px;
     right: 15px;
     bottom: 0;
-    border: .01px dotted black;
+    border: .01px solid black;
     opacity: 0.2;
+}
+.list-item p:hover{
+    color: #B00000;
+
 }
 .list-item {
     display: flex;
@@ -581,12 +595,14 @@ hr {
     padding-top: 100px;
     margin: auto;
     justify-content:space-between;
+   
 }
 .some-foods-item {
     width: 30%;
     border-radius: 2px;
     transition: all 0.5s ease;
     position: relative;
+    padding-bottom: 10px;
 }
 .some-foods-item img {
     width: 100%;
@@ -673,6 +689,7 @@ form {
     width: 90%;
     height: 700px;
     background-color: #BDBDBD;
+    border-radius: 15px;
 }
 .booking {
     background-color: var(--main-color);
@@ -812,3 +829,132 @@ border-bottom-right-radius: 16px;
 .spinner-1{
     width: 50px !important;
 }
+
+/***********************************DETAIL******************************************/
+.detail-modal{
+    display: block; /* Hidden by default */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: #fff;
+    padding: 100px 200px 50px 200px;
+}
+.detail-item {
+    display: flex;
+    background-color: silver;
+    height: 80%;
+    width: 100%;
+    padding: 5px;
+    padding-right: 20px;
+}
+.detail-item img {
+    height: 100%;
+    width: 100%;
+    padding-right: 20px;
+    margin: 30px;
+    padding-bottom: 60px;
+}
+.detail-items {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 5px;
+}
+.detail-items h3{
+    font-size: 25px;
+    padding-bottom: 17px;
+}
+.detail-items h2{
+    font-size: 30px;
+    color: var(--second-color);
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.detail-items label {
+    font-size: 25px;
+    padding-bottom: 25px;
+}
+.detail-items input {
+    height: 100%;
+    width: 50%;
+    font-size: 25px;
+}
+.detail-items p {
+    font-size: 15px;
+    color:#333;
+    margin: 15px 0 30px;
+    text-align: justify;
+}
+.btn-cart {
+  font-family: Montserrat-SemiBold;
+  font-size: 18px;
+  line-height: 1.2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  width: calc((100% - 20px) / 2);
+  height: 70px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  z-index: 1;
+}
+.btn-cart::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  
+  .btn-cart {
+    color: #fff;
+    background-color: #3b5998;
+    width: 100%;
+  }
+  
+  .btn-cart i {
+    font-size: 30px;
+    margin-right: 17px;
+    padding-bottom: 3px;
+  }
+  .btn-cart:hover:before{
+  opacity: 1;
+}
+
+.btn-cart:hover{
+  color: #fff;
+}
+  

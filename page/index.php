@@ -68,7 +68,11 @@ if (isset($_POST['dangky_home'])) {
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/css/webstyle.css">
     <link rel="stylesheet" href="../assets/css/login.css">
-    <!-- <link rel="stylesheet" href="../frontend/res.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrer-policy="no-referrer" />
     <script>
@@ -93,13 +97,12 @@ if (isset($_POST['dangky_home'])) {
                             <h1>Welcome To Kien Restaurant</h1>
                             <p>Please fill in this form to create an account.</p>
                             <hr>
-                            <div class="signup-input">
-                                <input type="text" placeholder="Full name" name="kh_fullname" required>
-                                <input type="text" placeholder="Enter your phone" name="kh_sdt" required>
-                                <input type="text" placeholder="Enter your mail" name="kh_email" required>
-                                <input type="text" placeholder="Enter user name" name="kh_user" required>
-                                <input type="password" placeholder="Enter password" name="kh_password" required>
-                                <input type="password" placeholder="Repeat password" name="kh_repeatps" required>
+                            <div class="wrap-input100 validate-input">
+                                <input class="input100" type="text" placeholder="Full name" name="kh_fullname" required>
+                                <input class="input100" type="text" placeholder="Enter your mail" name="kh_email" required>
+                                <input class="input100" type="text" placeholder="Enter user name" name="kh_user" required>
+                                <input class="input100" type="password" placeholder="Enter password" name="kh_password" required>
+                                <input class="input100" type="password" placeholder="Repeat password" name="kh_repeatps" required>
                             </div>
 
                             <label>
@@ -111,8 +114,7 @@ if (isset($_POST['dangky_home'])) {
                                     Privacy</a>.</p>
 
                             <div class="clearfix">
-                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                                <button type="submit" class="signupbtn" name="dangky_home">Sign Up</button>
+                                <button type="submit" class="signupbtn" name="dangky_home">REGISTER</button>
                             </div>
                         </form>
                     </div>
@@ -133,10 +135,10 @@ if (isset($_POST['dangky_home'])) {
                                     <i class="fab fa-facebook"></i>
                                     Facebook
                                 </a>
-                                <a href="#" class="btn-google m-b-20">
+                                <a href="loginwgg.php" class="btn-google m-b-20">
                                     <img src="../image/icon-google.png" alt="Google">
-                                    Google
                                 </a>
+                                
                             </div>
                             <div class="p-t-31 p-b-9">
                                 <span class="txt1">
@@ -169,7 +171,7 @@ if (isset($_POST['dangky_home'])) {
                                 <span class="txt2">
                                     Not a member?
                                 </span>
-                                <a href="#" class="txt2 bo1">
+                                <a href="register.php" class="txt2 bo1">
                                     Sign up now
                                 </a>
                             </div>
@@ -193,14 +195,49 @@ if (isset($_POST['dangky_home'])) {
         </div>
     </section>
     <section id="" class="background">
-        <div class="background-content" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
-            <h2>European Restaurant </h2>
-            <p>Come and experience it yourself!</p>
-            <a href="#booking">
-                <button class="background-content btn" name="dangnhap_home">BOOK NOW</button>
-                <p>(Only members)</p>
-            </a>
+    <div class="home-slider owl-carousel js-fullheight">
+      <div class="slider-item js-fullheight" style="background-image:url(../image/background5.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+	          <div class="col-md-12 ftco-animate">
+	          	<div class="text w-100 text-center">
+	          		<h2>European Restaurant</h2>
+		            <h1 class="mb-3">AMERICA</h1>
+	            </div>
+	          </div>
+	        </div>
         </div>
+      </div>
+
+      <div class="slider-item js-fullheight" style="background-image:url(../image/spagetti.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+	          <div class="col-md-12 ftco-animate">
+	          	<div class="text w-100 text-center">
+	          		<h2>European Restaurant</h2>
+		            <h1 class="mb-3">ITALIA</h1>
+	            </div>
+	          </div>
+	        </div>
+        </div>
+      </div>
+
+      <div class="slider-item js-fullheight" style="background-image:url(../image/background6.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+	          <div class="col-md-12 ftco-animate">
+	          	<div class="text w-100 text-center">
+	          		<h2>European Restaurant</h2>
+		            <h1 class="mb-3">Turkey</h1>
+	            </div>
+	          </div>
+	        </div>
+        </div>
+      </div>
+    </div>
     </section>
 
     <!---------------------------------------------ABOUT-US------------------------------------->
@@ -213,11 +250,11 @@ if (isset($_POST['dangky_home'])) {
             </div>
             <div class="row">
                 <div class="about-item" data-aos="fade-up-right" data-aos-easing="linear" data-aos-duration="1500">
-                    <h2>WELCOME TO KIEN RESTAURANT</h2>
+                    <h2>WELCOME TO BEES RESTAURANT</h2>
                     <p>
                         Our restaurant was established and grown in 2008 after those arduous days. The finest dishes of
                         Europe can be found right on the menu of our restaurant.
-                        If the cooking method creates the soul of a dish, the ingredients make up its body. Kien
+                        If the cooking method creates the soul of a dish, the ingredients make up its body. BEES
                         Restaurant has chosen a rather thorny path in choosing ingredients for its dishes, and has
                         written its own story.
                         With a menu of European dishes, the restaurant has worked hard to find the source of fresh
@@ -228,7 +265,7 @@ if (isset($_POST['dangky_home'])) {
                 <div class="about-item" data-aos="fade-up-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="about-item-img">
                         <span>+10 years of experience</span>
-                        <img src="../image/content1.jpg" alt="">
+                        <img src="../image/content3.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -279,7 +316,7 @@ if (isset($_POST['dangky_home'])) {
                         <div class="list-items">
                             <div class="list-item">
                                 <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <p><?php echo $row_product['sanpham_name'] ?></p>
+                               <a href="detail.php"><p><?php echo $row_product['sanpham_name'] ?></p></a> 
                             </div>
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
@@ -304,30 +341,34 @@ if (isset($_POST['dangky_home'])) {
         <div class="title">
             <h2>our gallery</h2>
         </div>
-        <div class="some-foods container row">
-            <div class="some-foods-item">
-                <h2>Pan-fried Salmon</h2>
-                <img src="../image/br1.jpg" alt="">
-            </div>
-            <div class="some-foods-item">
-                <h2>Vegetarian Salad </h2>
-                <img src="../image/br2.jpg" alt="">
-            </div>
-            <div class="some-foods-item">
-                <h2>Chicken Breast Salad</h2>
-                <img src="../image/br3.jpg" alt="">
-            </div>
-            <div class="some-foods-item">
-                <h2>Goose Breast</h2>
-                <img src="../image/br4.jpg" alt="">
-            </div>
-            <div class="some-foods-item">
-                <h2>Dessert</h2>
-                <img src="../image/br5.jpg" alt="">
-            </div>
-            <div class="some-foods-item">
-                <h2>Vegetarian Sandwich</h2>
-                <img src="../image/sandwich.jpg" alt="">
+        <div class="some-foods">
+            <div class="container">
+                <div class="row">
+                    <div class="some-foods-item">
+                        <h2>Pan-fried Salmon</h2>
+                        <img src="../image/br1.jpg" alt="">
+                    </div>
+                    <div class="some-foods-item">
+                        <h2>Vegetarian Salad </h2>
+                        <img src="../image/br2.jpg" alt="">
+                    </div>
+                    <div class="some-foods-item">
+                        <h2>Chicken Breast Salad</h2>
+                        <img src="../image/br3.jpg" alt="">
+                    </div>
+                    <div class="some-foods-item">
+                        <h2>Goose Breast</h2>
+                        <img src="../image/br4.jpg" alt="">
+                    </div>
+                    <div class="some-foods-item">
+                        <h2>Dessert</h2>
+                        <img src="../image/br5.jpg" alt="">
+                    </div>
+                    <div class="some-foods-item">
+                        <h2>Vegetarian Sandwich</h2>
+                        <img src="../image/sandwich.jpg" alt="">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -358,8 +399,7 @@ if (isset($_POST['dangky_home'])) {
                     <img src="../image/vip2.jpg" alt="">
                     <div class="room-items-text">
                         <h2>VIP</h2>
-                        <p>Capacity 10-15 peoples.Completely private room. Separate entrance. Private party menu options
-                            available</p>
+                        <p>Capacity 10-15 peoples.Completely private room.</p>
                     </div>
                 </div>
             </div>
@@ -418,15 +458,9 @@ if (isset($_POST['dangky_home'])) {
     <!--===============================================================================================-->
     <script src="vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
     <script src="vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/countdowntime/countdowntime.js"></script>
+
 
     <script>
         window.fbAsyncInit = function() {
@@ -456,6 +490,10 @@ if (isset($_POST['dangky_home'])) {
             statusChangeCallback(response);
         });
     </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

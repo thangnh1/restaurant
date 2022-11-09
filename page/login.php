@@ -26,6 +26,7 @@ if (isset($_POST['dangnhap_home'])) {
     echo '</script>';
 }
 ?>
+
 <?php
 if (!isset($_SESSION['dangnhap_home'])) {
     header('Location: index.php');
@@ -41,6 +42,7 @@ if ($logout == 'logout') {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +67,7 @@ if ($logout == 'logout') {
         <div class="container"> 
             <div class="row justify-content">
                 
-                <div class="logo"><img src="../image/logo.png" alt=""></div>
+                <div class="logo"><img src="../image/logo2.png" alt=""></div>
                 <div class="logout">
                     <p>XIN CHÀO : <?php echo $_SESSION['dangnhap_home'] ?> </p>
                     <a href="?loginn=logout" onclick="return confirm('logout from this website?');" > <button class="logout-button">LOG OUT</button></a>
@@ -124,7 +126,7 @@ if ($logout == 'logout') {
                 <div class="about-item" data-aos="fade-up-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="about-item-img">
                         <span>+10 years of experience</span>
-                        <img src="../image/content1.jpg" alt="">
+                        <img src="../image/content3.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -174,7 +176,7 @@ if ($logout == 'logout') {
                         <div class="list-items">
                             <div class="list-item">
                                 <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <p><?php echo $row_product['sanpham_name'] ?></p>
+                                <a href="detail.php"><p><?php echo $row_product['sanpham_name'] ?></p></a> 
                             </div>
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
@@ -330,8 +332,6 @@ if ($logout == 'logout') {
             </div>
         </div>
     </section>
-
-
     <!-----------------------------------------FOOTER---------------------------------------->
 
     <section id="contact" class="footer">
