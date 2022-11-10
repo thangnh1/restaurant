@@ -163,8 +163,10 @@ if (isset($_GET['dangxuly'])) {
 									echo 'Chưa xử lý';
 								} else if($row_donhang['tinhtrang'] == 1){
 									echo 'Đã hoàn thành';
-								}else{
+								} else if($row_donhang['tinhtrang'] == 2){
 									echo 'Đang giao hàng';
+								}else{
+									echo 'Đã hủy';
 								}
 								?></td>
 							<td><?php echo $row_donhang['kh_name']; ?></td>
@@ -223,7 +225,7 @@ if (isset($_GET['dangxuly'])) {
 								} else if($row_donhang['tinhtrang'] == 1){
 									echo 'Đã hoàn thành';
 								} else if($row_donhang['tinhtrang'] == 2){
-									echo 'Đang giao';
+									echo 'Đang giao hàng';
 								}else{
 									echo 'Đã hủy';
 								}
@@ -283,7 +285,7 @@ if (isset($_GET['dangxuly'])) {
 								} else if($row_donhang['tinhtrang'] == 1){
 									echo 'Đã hoàn thành';
 								} else if($row_donhang['tinhtrang'] == 2){
-									echo 'Đã hoàn thành';
+									echo 'Đang giao hàng';
 								}else{
 									echo 'Đã hủy';
 								}
