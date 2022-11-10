@@ -71,8 +71,9 @@ CREATE TABLE `tbl_dondatmon` (
   `kh_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kh_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `kh_phone` int(100) NOT NULL,
-  `tinhtrang` int(20) NOT NULL
-
+  `tinhtrang` int(20) NOT NULL,
+  `thanhtoan` int(20) NOT NULL,
+  `phuongthucthanhtoan` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `tbl_chitietdondatmon` (
@@ -181,19 +182,19 @@ COMMIT;
 
 
 INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
-(1,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0)
+(1,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
 
 INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
-(2,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0)
+(2,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
 
 INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
-(3,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0)
+(3,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
 
 
 
 INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
-(1,14,1)
+(1,14,1);
 INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
-(2,14,1)
+(2,14,1);
 INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
-(3,14,1)
+(3,14,1);
