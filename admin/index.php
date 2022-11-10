@@ -29,12 +29,12 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>AD Account</title>
 </head>
 
 <body>
-    <h2 align="center">Log in with Admin</h2>
+    <h2 align ="center" >Log in with Admin</h2>
     <div id="id02" class="modal">
         <form action="" method="POST">
             <input type="text" name="user" placeholder="Enter user" class="form-control" required>
