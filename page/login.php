@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../db/connect.php";
+include "./loginwgg.php";
 if (isset($_POST['dangnhap_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
@@ -40,7 +41,6 @@ if ($logout == 'logout') {
     session_destroy();
     header('Location: index.php');
 }
-
 ?>
 
 <!DOCTYPE html>

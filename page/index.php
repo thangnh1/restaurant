@@ -1,6 +1,9 @@
 <?php
 session_start();
-include('../db/connect.php')
+include('../db/connect.php');
+include('./loginwgg.php');
+
+
 ?>
 <?php
 /*if(isset($_SESSION['passupdate'])){
@@ -69,10 +72,10 @@ if (isset($_POST['dangky_home'])) {
     <link rel="stylesheet" href="../assets/css/webstyle.css">
     <link rel="stylesheet" href="../assets/css/login.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
-	<link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrer-policy="no-referrer" />
     <script>
@@ -135,10 +138,12 @@ if (isset($_POST['dangky_home'])) {
                                     <i class="fab fa-facebook"></i>
                                     Facebook
                                 </a>
-                                <a href="loginwgg.php" class="btn-google m-b-20">
-                                    <img src="../image/icon-google.png" alt="Google">
-                                </a>
-                                
+                                <?php
+                                echo '<a href="' . $client->createAuthUrl() . '" class="btn-google m-b-20" >
+                                <img src="../image/icon-google.png" alt="Google">
+                                </a>';
+                                ?>
+
                             </div>
                             <div class="p-t-31 p-b-9">
                                 <span class="txt1">
@@ -195,49 +200,49 @@ if (isset($_POST['dangky_home'])) {
         </div>
     </section>
     <section id="" class="background">
-    <div class="home-slider owl-carousel js-fullheight">
-      <div class="slider-item js-fullheight" style="background-image:url(../image/background5.jpg);">
-      	<div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
-	          <div class="col-md-12 ftco-animate">
-	          	<div class="text w-100 text-center">
-	          		<h2>European Restaurant</h2>
-		            <h1 class="mb-3">AMERICA</h1>
-	            </div>
-	          </div>
-	        </div>
-        </div>
-      </div>
+        <div class="home-slider owl-carousel js-fullheight">
+            <div class="slider-item js-fullheight" style="background-image:url(../image/background5.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="text w-100 text-center">
+                                <h2>European Restaurant</h2>
+                                <h1 class="mb-3">AMERICA</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="slider-item js-fullheight" style="background-image:url(../image/spagetti.jpg);">
-      	<div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
-	          <div class="col-md-12 ftco-animate">
-	          	<div class="text w-100 text-center">
-	          		<h2>European Restaurant</h2>
-		            <h1 class="mb-3">ITALIA</h1>
-	            </div>
-	          </div>
-	        </div>
-        </div>
-      </div>
+            <div class="slider-item js-fullheight" style="background-image:url(../image/spagetti.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="text w-100 text-center">
+                                <h2>European Restaurant</h2>
+                                <h1 class="mb-3">ITALIA</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="slider-item js-fullheight" style="background-image:url(../image/background6.jpg);">
-      	<div class="overlay"></div>
-        <div class="container">
-          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
-	          <div class="col-md-12 ftco-animate">
-	          	<div class="text w-100 text-center">
-	          		<h2>European Restaurant</h2>
-		            <h1 class="mb-3">Turkey</h1>
-	            </div>
-	          </div>
-	        </div>
+            <div class="slider-item js-fullheight" style="background-image:url(../image/background6.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="text w-100 text-center">
+                                <h2>European Restaurant</h2>
+                                <h1 class="mb-3">Turkey</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </section>
 
     <!---------------------------------------------ABOUT-US------------------------------------->
@@ -285,6 +290,26 @@ if (isset($_POST['dangky_home'])) {
                 </div>
             </div>
             <div class="row">
+            <div class="detail">
+                <div id="id03" class="detail-modal1">
+                    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    <div class="detail-items">
+                        <div class="detail-img">
+                            <img src="../image/background.jpg" alt="">
+                        </div>
+                        <div class="detail-info">
+                            <h2>PASTA</h2>
+                            <h3>PRICE: 50$</h3>
+                            <label for="">QUANTITY: <input type="number"></label>
+                            <h3>DETAIL : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex incidunt magnam vero similique modi quaerat nihil earum cum sapiente, ab tempora deserunt nisi non perferendis odio totam, cupiditate possimus.</p>
+                            </h3>
+                            <a href="#" class="btn-cart m-b-20">
+                                ADD TO CART <i class="fas fa-cart-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+             </div>
                 <div class="menu-title">
                     <?php
                     $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id  ASC");
@@ -316,7 +341,7 @@ if (isset($_POST['dangky_home'])) {
                         <div class="list-items">
                             <div class="list-item">
                                 <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                               <a href="detail.php"><p><?php echo $row_product['sanpham_name'] ?></p></a> 
+                                <button class="menu-item-name" onclick="document.getElementById('id03').style.display='block'" style="width:100%;"><?php echo $row_product['sanpham_name'] ?></button>
                             </div>
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
@@ -329,10 +354,12 @@ if (isset($_POST['dangky_home'])) {
 
                 </div>
 
+
             <?php
             }
             ?>
         </div>
+       
     </section>
 
 

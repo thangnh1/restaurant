@@ -13,6 +13,7 @@ include('../db/connect.php');
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/css/webstyle.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <link rel="stylesheet" href="../assets/bootstrap/bootstrap.css">
     <!-- <link rel="stylesheet" href="../frontend/res.css"> -->
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
@@ -169,14 +170,6 @@ include('../db/connect.php');
                     </select>
                   </div>
 
-                  <h5 class="text-uppercase mb-3">Give code</h5>
-
-                  <div class="mb-5">
-                    <div class="form-outline">
-                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Examplea2">Enter your code</label>
-                    </div>
-                  </div>
 
                   <hr class="my-4">
 
@@ -184,10 +177,15 @@ include('../db/connect.php');
                     <h5 class="text-uppercase">Total price</h5>
                     <h5>€ 137.00</h5>
                   </div>
-
-                  <button type="button" class="btn btn-dark btn-block btn-lg"
-                    data-mdb-ripple-color="dark">Register</button>
-
+                  <div class="btn-payment">
+                    <button type="button" class="login100-form-btn"
+                      data-mdb-ripple-color="dark">PAY AT RESTAURANT</button>
+                  </div>
+                   <a style="text-decoration:none;" href="https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1806000&vnp_Command=pay&vnp_CreateDate=20210801153333&vnp_CurrCode=VND&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+%3A5&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fdomainmerchant.vn%2FReturnUrl&vnp_TmnCode=DEMOV210&vnp_TxnRef=5&vnp_Version=2.1.0&vnp_SecureHash=3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42">
+                    <button type="button" class="login100-form-btn"
+                     >PAY WITH VNPAY</button>
+                   </a> 
+                  
                 </div>
               </div>
             </div>
