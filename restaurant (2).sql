@@ -65,20 +65,21 @@ CREATE TABLE `tbl_chitietdondatban` (
 
 
 CREATE TABLE `tbl_dondatmon` (
-  `madon` int(255) NOT NULL,
-  `ngaythang` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `gio` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `kh_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `kh_phone` int(100) NOT NULL,
-  `tinhtrang` int(20) NOT NULL
-
+  `id_order` int(255) NOT NULL,
+  `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `id_kh` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `order_status` int(20) NOT NULL,
+  `payment_status` int(20) NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `tbl_chitietdondatmon` (
-  `monan_id` int(15) NOT NULL,
-  `madon` int(255) NOT NULL,
-  `soluong` int(20) NOT NULL
 
+CREATE TABLE `tbl_chitietdondatmon` (
+  `id_product` int(15) NOT NULL,
+  `id_order_detail` int(255) NOT NULL,
+  `code_order` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -105,7 +106,7 @@ CREATE TABLE `tbl_loaiban` (
   `tenloaiban` varchar(255) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `tbl_monan` (`monan_id`, `category_id`, `tenmon`, `monan_image`, `giamonan`) VALUES
+INSERT INTO `tbl_monan` ( `category_id`, `tenmon`, `monan_image`, `giamonan`) VALUES
 (13, 9, 'Carrot Juice', 'carot.jpg', 10),
 (14, 8, 'Hamburger', 'hamburger.jpg', 12),
 (15, 8, 'Sandwich', 'sandwich.jpg', 12),
@@ -147,11 +148,9 @@ ALTER TABLE `tbl_dondatban`
 ALTER TABLE `tbl_dondatmon`
   ADD PRIMARY KEY (`madon`);
 
-ALTER TABLE `tbl_chitietdondatmon`
-  ADD PRIMARY KEY (`madon`);
 
-ALTER TABLE `tbl_chitietdondatban`
-  ADD PRIMARY KEY (`madondatban`);
+
+
 
 ALTER TABLE `tbl_monan`
   ADD PRIMARY KEY (`monan_id`);
@@ -162,21 +161,39 @@ ALTER TABLE `tbl_monan`
 
 
 ALTER TABLE `tbl_acckh`
-  MODIFY `khachhang_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `khachhang_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `tbl_category`
-  MODIFY `category_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `category_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `tbl_dondatmon`
-  MODIFY `madon` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
+  MODIFY `madon` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `tbl_dondatban`
-  MODIFY `madondatban` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
+  MODIFY `madondatban` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `tbl_monan`
-  MODIFY `monan_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `monan_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
+
+INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
+(1,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
+
+INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
+(2,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
+
+INSERT INTO `tbl_dondatmon` ( `madon`,`ngaythang`, `gio`, `kh_name`,`kh_address`, `kh_phone`,`tinhtrang`) VALUES
+(3,'10/11/2022', 9, 'Trung','Nguyen Than Hien Phuong 18 Q4', 0903700969, 0);
+
+
+
+INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
+(1,14,1);
+INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
+(2,14,1);
+INSERT INTO `tbl_chitietdondatmon` (`madon`, `monan_id`,`soluong`) VALUES
+(3,14,1);
