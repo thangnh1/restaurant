@@ -9,10 +9,43 @@ if (isset($_POST['themsanpham'])) {
     $gia = $_POST['giasanpham'];
     $danhmuc = $_POST['danhmuc'];
     $path = '../image/';
+    $hinhanh_tmp = $_FILES['hinhanh']['tmp_name']; 
 
-    $hinhanh_tmp = $_FILES['hinhanh']['tmp_name'];
-    $sql_insert_product = mysqli_query($con, "INSERT INTO tbl_monan(tenmon,giamonan,monan_image,category_id) values ('$tensanpham','$gia','$hinhanh','$danhmuc')");
-    move_uploaded_file($hinhanh_tmp, $path . $hinhanh);
+    $sql_monan	= mysqli_query($con, "SELECT tenmon FROM tbl_monan WHERE tenmon ='$tensanpham'");
+    $sql_monan1	= mysqli_query($con, "SELECT monan_image FROM tbl_monan WHERE monan_image ='$hinhanh'");   
+	$row_monan = mysqli_fetch_array($sql_monan);
+    $row_monan1 = mysqli_fetch_array($sql_monan1);
+
+        if($gia <= '0' || $gia == ''){
+            echo '<script language="javascript">';
+            echo 'alert("Giá bán không hợp lệ")';
+            echo '</script>';       
+        }else if($hinhanh== ''){
+            echo '<script language="javascript">';
+            echo 'alert("Không tìm thấy ảnh")';
+            echo '</script>';       
+        }else if($tensanpham == ''){
+            echo '<script language="javascript">';
+            echo 'alert("Tên không hợp lệ")';
+            echo '</script>';       
+        }else if($danhmuc == '0'){
+            echo '<script language="javascript">';
+            echo 'alert("Danh mục chưa được chọn")';
+            echo '</script>';
+        }else if(isset($row_monan1)){
+            echo '<script language="javascript">';
+            echo 'alert("Ảnh đã được sử dụng")';
+            echo '</script>';
+        }else if(isset($row_monan)){
+            echo '<script language="javascript">';
+            echo 'alert("Tên món đã tồn tại")';
+            echo '</script>';
+        }
+        else{
+            $sql_insert_product = mysqli_query($con, "INSERT INTO tbl_monan(tenmon,giamonan,monan_image,category_id) values ('$tensanpham','$gia','$hinhanh','$danhmuc')");
+        move_uploaded_file($hinhanh_tmp, $path . $hinhanh);
+        }
+    
 } else if (isset($_POST['capnhatsanpham'])) {
     $id_update = $_POST['id_update'];
     $tensanpham = $_POST['tensanpham'];
