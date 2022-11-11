@@ -64,15 +64,15 @@ if ($logout == 'logout') {
 
 <body>
     <section class="top">
-        <div class="container"> 
+        <div class="container">
             <div class="row justify-content">
-                
-                <div class="logo"><img src="../image/logo2.png" alt=""></div>
+
+                <div class="logo"><a href="#home"><img src="../image/logo.png" alt=""></a></div>
                 <div class="logout">
                     <p>XIN CHÀO : <?php echo $_SESSION['dangnhap_home'] ?> </p>
-                    <a href="?loginn=logout" onclick="return confirm('logout from this website?');" > <button class="logout-button">LOG OUT</button></a>
+                    <a href="?loginn=logout" onclick="return confirm('logout from this website?');"> <button class="logout-button">LOG OUT</button></a>
                 </div>
-                <div class="cart"><a href="cart.php"><i class="fas fa-shopping-cart"></i><span></span></a></div> 
+                <div class="cart"><a href="cart.php"><i class="fas fa-shopping-cart"></i><span></span></a></div>
                 <div class="menu-bar">
                     <span></span>
                 </div>
@@ -86,10 +86,10 @@ if ($logout == 'logout') {
                         <a href="#contact">Contact</a>
                     </ul>
                 </div>
-                
+
             </div>
         </div>
-        
+
     </section>
     <section id="home" class="background">
         <div class="background-content" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
@@ -136,7 +136,6 @@ if ($logout == 'logout') {
 
     <!--------------------------------------------------------MENU---------------------------------------------------->
     <section id="menu" class="menu section-pading">
-
         <div class="container">
             <div class="row">
                 <div class="title">
@@ -144,6 +143,26 @@ if ($logout == 'logout') {
                 </div>
             </div>
             <div class="row">
+                <div class="detail">
+                    <div id="id03" class="detail-modal1">
+                        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <div class="detail-items">
+                            <div class="detail-img">
+                                <img src="../image/background.jpg" alt="">
+                            </div>
+                            <div class="detail-info">
+                                <h2>PASTA</h2>
+                                <h3>PRICE: 50$</h3>
+                                <label for="">QUANTITY: <input type="number"></label>
+                                <h3>DETAIL : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex incidunt magnam vero similique modi quaerat nihil earum cum sapiente, ab tempora deserunt nisi non perferendis odio totam, cupiditate possimus.</p>
+                                </h3>
+                                <a href="#" class="btn-cart m-b-20">
+                                    ADD TO CART <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="menu-title">
                     <?php
                     $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id  ASC");
@@ -156,7 +175,6 @@ if ($logout == 'logout') {
                     <?php
                     }
                     ?>
-                    
                 </div>
             </div>
             <?php
@@ -176,12 +194,12 @@ if ($logout == 'logout') {
                         <div class="list-items">
                             <div class="list-item">
                                 <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <a href="detail.php"><p><?php echo $row_product['sanpham_name'] ?></p></a> 
+                                <button class="menu-item-name" onclick="document.getElementById('id03').style.display='block'" style="width:100%;"><?php echo $row_product['sanpham_name'] ?></button>
                             </div>
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
                             </div>
-                            <a href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-cart-plus"></i></a>
+                            <a href="addproduct.php?sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-plus"></i></a>
                         </div>
                     <?php
                     }
@@ -189,11 +207,11 @@ if ($logout == 'logout') {
 
                 </div>
 
+
             <?php
             }
             ?>
-
-
+        </div>
     </section>
 
 
@@ -406,7 +424,7 @@ if ($logout == 'logout') {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    
+
 </body>
 
 </html>

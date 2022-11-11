@@ -60,14 +60,16 @@ if (isset($_POST['dangky_home'])) {
 </head>
 <body>
     <div class="register">
-        <div id="id01" class="signup-form">
-            <form class="register-content" action="./index.php" method="post">
+     <div class="register-content">
+        <a href="index.php">
+        <span class="close" title="Close Modal">&times;</span>
+        </a>
+            <form class="register-form" action="./index.php" method="post">
                 <h1>Welcome To Kien Restaurant</h1>
                 <p>Please fill in this form to create an account.</p>
                 <hr>
                 <div class="signup-input">
                     <input type="text" placeholder="Full name" name="kh_fullname" required>
-                    <input type="text" placeholder="Enter your phone" name="kh_sdt" required>
                     <input type="text" placeholder="Enter your mail" name="kh_email" required>
                     <input type="text" placeholder="Enter user name" name="kh_user" required>
                     <input type="password" placeholder="Enter password" name="kh_password" required>
@@ -82,8 +84,8 @@ if (isset($_POST['dangky_home'])) {
                 <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
                         Privacy</a>.</p>
     
-                <div class="clearfix">  
-                    <a href="./index.php" onclick="return confirm('Are you sure?');"> <button class="cancelbtn">Cancel</button></a>
+                <div class="clearfix">
+                    <a href="index.php"><button class="signupbtn">Cancel</button></a>
                     <button type="submit" class="signupbtn" name="dangky_home">Sign Up</button>
                 </div>
             </form>

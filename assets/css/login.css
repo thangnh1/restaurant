@@ -193,8 +193,8 @@ iframe {
 [ Form ]*/
 
 .login100-form {
-  width: 100%;
-  background-color: #fff;
+  width: 50%;
+  background-color:#00dbde;
   padding: 50px;
   height: 600px;
   border-radius: 15px;
@@ -225,7 +225,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  width: calc((100% - 20px) / 2);
+  width: 50%;
   height: 70px;
   border-radius: 10px;
   box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);

@@ -92,95 +92,14 @@ if (isset($_POST['dangky_home'])) {
                 <div class="logo"><img src="../image/logo.png" alt=""></div>
                 <div class="signup">
                     <div class="signup-button">
-                        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">SIGN UP</button>
-                    </div>
-                    <div id="id01" class="modal">
-                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="modal-content" action="index.php" method="post">
-                            <h1>Welcome To Kien Restaurant</h1>
-                            <p>Please fill in this form to create an account.</p>
-                            <hr>
-                            <div class="wrap-input100 validate-input">
-                                <input class="input100" type="text" placeholder="Full name" name="kh_fullname" required>
-                                <input class="input100" type="text" placeholder="Enter your mail" name="kh_email" required>
-                                <input class="input100" type="text" placeholder="Enter user name" name="kh_user" required>
-                                <input class="input100" type="password" placeholder="Enter password" name="kh_password" required>
-                                <input class="input100" type="password" placeholder="Repeat password" name="kh_repeatps" required>
-                            </div>
-
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
-                                Remember me
-                            </label>
-
-                            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                    Privacy</a>.</p>
-
-                            <div class="clearfix">
-                                <button type="submit" class="signupbtn" name="dangky_home">REGISTER</button>
-                            </div>
-                        </form>
+                        <a href="register.php"><button>SIGN UP</button></a>
                     </div>
                 </div>
                 <div class="login">
                     <div class="login-button">
-                        <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">LOG IN</button>
-                    </div>
-
-                    <div id="id02" class="modal">
-                        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="login100-form validate-form flex-sb flex-w" action="./login.php" method="post">
-                            <span class="login100-form-title p-b-53">
-                                Sign In With
-                            </span>
-                            <div class="orther-btn">
-                                <a href="#" class="btn-face m-b-20">
-                                    <i class="fab fa-facebook"></i>
-                                    Facebook
-                                </a>
-                                <?php
-                                echo '<a href="' . $client->createAuthUrl() . '" class="btn-google m-b-20" >
-                                <img src="../image/icon-google.png" alt="Google">
-                                </a>';
-                                ?>
-
-                            </div>
-                            <div class="p-t-31 p-b-9">
-                                <span class="txt1">
-                                    Username
-                                </span>
-                            </div>
-                            <div class="wrap-input100 validate-input" data-validate="Username is required">
-                                <input class="input100" type="text" name="kh_user" required>
-                                <span class="focus-input100"></span>
-                            </div>
-
-                            <div class="p-t-13 p-b-9">
-                                <span class="txt1">
-                                    Password
-                                </span>
-                                <a href="forgotpass.php" class="txt2 bo1 m-l-5">
-                                    Forgot?
-                                </a>
-                            </div>
-                            <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                <input class="input100" type="password" name="kh_password" required>
-                                <span class="focus-input100"></span>
-                            </div>
-
-                            <div class="container-login100-form-btn ">
-                                <button type="submit" class="login100-form-btn" name="dangnhap_home">Log In</button>
-                            </div>
-
-                            <div class="w-full text-center p-t-55">
-                                <span class="txt2">
-                                    Not a member?
-                                </span>
-                                <a href="register.php" class="txt2 bo1">
-                                    Sign up now
-                                </a>
-                            </div>
-                        </form>
+                       <a href="signin.php">
+                       <button>LOG IN</button>
+                       </a> 
                     </div>
                 </div>
                 <div class="menu-bar">
@@ -290,26 +209,26 @@ if (isset($_POST['dangky_home'])) {
                 </div>
             </div>
             <div class="row">
-            <div class="detail">
-                <div id="id03" class="detail-modal1">
-                    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <div class="detail-items">
-                        <div class="detail-img">
-                            <img src="../image/background.jpg" alt="">
-                        </div>
-                        <div class="detail-info">
-                            <h2>PASTA</h2>
-                            <h3>PRICE: 50$</h3>
-                            <label for="">QUANTITY: <input type="number"></label>
-                            <h3>DETAIL : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex incidunt magnam vero similique modi quaerat nihil earum cum sapiente, ab tempora deserunt nisi non perferendis odio totam, cupiditate possimus.</p>
-                            </h3>
-                            <a href="#" class="btn-cart m-b-20">
-                                ADD TO CART <i class="fas fa-cart-plus"></i>
-                            </a>
+                <div class="detail">
+                    <div id="id03" class="detail-modal1">
+                        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <div class="detail-items">
+                            <div class="detail-img">
+                                <img src="../image/background.jpg" alt="">
+                            </div>
+                            <div class="detail-info">
+                                <h2>PASTA</h2>
+                                <h3>PRICE: 50$</h3>
+                                <label for="">QUANTITY: <input type="number"></label>
+                                <h3>DETAIL : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex incidunt magnam vero similique modi quaerat nihil earum cum sapiente, ab tempora deserunt nisi non perferendis odio totam, cupiditate possimus.</p>
+                                </h3>
+                                <a href="#" class="btn-cart m-b-20">
+                                    ADD TO CART <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-             </div>
                 <div class="menu-title">
                     <?php
                     $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id  ASC");
@@ -359,7 +278,7 @@ if (isset($_POST['dangky_home'])) {
             }
             ?>
         </div>
-       
+
     </section>
 
 
