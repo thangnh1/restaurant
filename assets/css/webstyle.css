@@ -24,6 +24,7 @@ ul {
     list-style: none;
 }
 a {
+    cursor: auto;
     text-decoration: none;
 }
 .justify-content {
@@ -380,7 +381,7 @@ a {
     width: 30%;
 }
 /* The Modal (background) */
-.modal {
+.form-register {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */

@@ -2,58 +2,46 @@
 session_start();
 include('../db/connect.php')
 ?>
+
 <?php
-/*if(isset($_SESSION['passupdate'])){
-    echo '<script language="javascript">';
-    echo 'alert("Password updated")';
-    echo '</script>';
-}*/
-if (isset($_SESSION['dangnhap_home'])) {
-    echo '<script language="javascript">';
-    echo 'alert("Sai mật khẩu hoặc tài khoản!")';
-    echo '</script>';
-    session_destroy();
-}
-if (isset($_POST['dangky_home'])) {
+if (isset($_POST['dangnhap_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
-    $kh_fullname = $_POST['kh_fullname'];
-    $kh_sdt = $_POST['kh_sdt'];
-    $kh_email = $_POST['kh_email'];
-
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
-    $count = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
-    $count1 = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
-    $count2 = mysqli_num_rows($check);
-    if ($count > 0) {
-        if ($count1 > 0 && $count2 > 0) {
-            echo '<script language="javascript">';
-            echo 'alert("Email and ID has already been used!")';
-            echo '</script>';
-        }
-
-        if ($count1 > 0 && $count2  <= 0) {
-            echo '<script language="javascript">';
-            echo 'alert("Email has already been used!")';
-            echo '</script>';
-        }
-        if ($count2 > 0 && $count1  <= 0) {
-            echo '<script language="javascript">';
-            echo 'alert("ID has already been used!")';
-            echo '</script>';
-        }
-    } else {
-        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
-        values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
-        //$check = mysqli_query($con, $sql_insert_dangky);
-        //$check = $sql_insert_dangky;
+    if ($kh_user == '' || $kh_password == '') {
         echo '<script language="javascript">';
-        echo 'alert("Bạn đã đăng ký thành công!")';
+        echo 'alert("Tài khoản hoặc mật khẩu không được để trống!")';
         echo '</script>';
+    } else {
+        $sql_select_dangnhap = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user' AND kh_password='$kh_password'");
+        $count = mysqli_num_rows($sql_select_dangnhap);
+        $row_login = mysqli_fetch_array($sql_select_dangnhap);
+        if ($count > 0) {
+            $_SESSION['dangnhap_home'] = $row_login['kh_fullname'];
+            $_SESSION['khachhang_id'] = $row_login['khachhang_id'];
+        } else {
+            echo '<script language="javascript">';
+            echo 'alert("Something wrong with your user name or password!")';
+            echo '</script>';
+        }
     }
+    echo '<script language="javascript">';
+    echo 'alert("Welcome to Restaurant!")';
+    echo '</script>';
 }
+?>
+
+<?php
+
+if (isset($_GET['loginn'])) {
+    $logout = $_GET['loginn'];
+} else {
+    $logout = '';
+}
+if ($logout == 'logout') {
+    session_destroy();
+    echo '<meta http-equiv="refresh" content="0;url=index.php">';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -65,11 +53,7 @@ if (isset($_POST['dangky_home'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIEN RESTAURANT</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/css/webstyle.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
-    <!-- <link rel="stylesheet" href="../frontend/res.css"> -->
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrer-policy="no-referrer" />
     <script>
@@ -83,123 +67,50 @@ if (isset($_POST['dangky_home'])) {
     <section class="top">
         <div class="container">
             <div class="row justify-content">
-                <div class="logo"><img src="../image/logo.png" alt=""></div>
-                <div class="signup">
-                    <div class="signup-button">
-                        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">SIGN UP</button>
+                <?php if (isset($_SESSION['dangnhap_home'])) { ?>
+                    <div class="logo"><img src="../image/logo.png" alt=""></div>
+                    <div class="logout">
+                        <p>XIN CHÀO : <?php echo $_SESSION['dangnhap_home'] ?> </p>
+                        <a href="?loginn=logout" onclick="return confirm('logout from this website?');"> <button class="logout-button">LOG OUT</button></a>
                     </div>
-                    <div id="id01" class="modal">
-                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="modal-content" action="index.php" method="post">
-                            <h1>Welcome To Kien Restaurant</h1>
-                            <p>Please fill in this form to create an account.</p>
-                            <hr>
-                            <div class="signup-input">
-                                <input type="text" placeholder="Full name" name="kh_fullname" required>
-                                <input type="text" placeholder="Enter your phone" name="kh_sdt" required>
-                                <input type="text" placeholder="Enter your mail" name="kh_email" required>
-                                <input type="text" placeholder="Enter user name" name="kh_user" required>
-                                <input type="password" placeholder="Enter password" name="kh_password" required>
-                                <input type="password" placeholder="Repeat password" name="kh_repeatps" required>
-                            </div>
+                    <div class="cart"><a href="cart.php"><i class="fas fa-shopping-cart"></i><span></span></a></div>
 
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
-                                Remember me
-                            </label>
-
-                            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                    Privacy</a>.</p>
-
-                            <div class="clearfix">
-                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                                <button type="submit" class="signupbtn" name="dangky_home">Sign Up</button>
-                            </div>
-                        </form>
+                <?php } else { ?>
+                    <div class="logo"><img src="../image/logo.png" alt=""></div>
+                    <div class="signup">
+                        <div class="signup-button">
+                            <a href="register.php"><button style="width:auto;">SIGN UP</button></a>
+                        </div>
                     </div>
-                </div>
-                <div class="login">
-                    <div class="login-button">
-                        <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">LOG IN</button>
+                    <div class="login">
+                        <div class="login-button">
+                            <a href="login_.php"><button style="width:auto;">LOG IN</button></a>
+                        </div>
+                    <?php } ?>
+                    <div class="menu-bar">
+                        <span></span>
+                    </div>
+                    <div class="menu-items">
+                        <ul>
+                            <a href="#home">Home</a><br>
+                            <a href="#aboutus">About us</a> <br>
+                            <a href="#menu">Menu</a><br>
+                            <a href="#gallery">Gallery</a><br>
+                            <a href="#room">Party Room</a><br>
+                            <a href="#contact">Contact</a>
+                        </ul>
                     </div>
 
-                    <div id="id02" class="modal">
-                        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="login100-form validate-form flex-sb flex-w" action="./login.php" method="post">
-                            <span class="login100-form-title p-b-53">
-                                Sign In With
-                            </span>
-                            <div class="orther-btn">
-                                <a href="#" class="btn-face m-b-20">
-                                    <i class="fab fa-facebook"></i>
-                                    Facebook
-                                </a>
-                                <a href="#" class="btn-google m-b-20">
-                                    <img src="../image/icon-google.png" alt="Google">
-                                    Google
-                                </a>
-                            </div>
-                            <div class="p-t-31 p-b-9">
-                                <span class="txt1">
-                                    Username
-                                </span>
-                            </div>
-                            <div class="wrap-input100 validate-input" data-validate="Username is required">
-                                <input class="input100" type="text" name="kh_user" required>
-                                <span class="focus-input100"></span>
-                            </div>
-
-                            <div class="p-t-13 p-b-9">
-                                <span class="txt1">
-                                    Password
-                                </span>
-                                <a href="forgotpass.php" class="txt2 bo1 m-l-5">
-                                    Forgot?
-                                </a>
-                            </div>
-                            <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                <input class="input100" type="password" name="kh_password" required>
-                                <span class="focus-input100"></span>
-                            </div>
-
-                            <div class="container-login100-form-btn ">
-                                <button type="submit" class="login100-form-btn" name="dangnhap_home">Log In</button>
-                            </div>
-
-                            <div class="w-full text-center p-t-55">
-                                <span class="txt2">
-                                    Not a member?
-                                </span>
-                                <a href="#" class="txt2 bo1">
-                                    Sign up now
-                                </a>
-                            </div>
-                        </form>
                     </div>
-                </div>
-                <div class="menu-bar">
-                    <span></span>
-                </div>
-                <div class="menu-items">
-                    <ul>
-                        <a href="">Home</a><br>
-                        <a href="#aboutus">About us</a> <br>
-                        <a href="#menu">Menu</a><br>
-                        <a href="#gallery">Gallery</a><br>
-                        <a href="#room">Party Room</a><br>
-                        <a href="#contact">Contact</a>
-                    </ul>
-                </div>
             </div>
-        </div>
+
     </section>
-    <section id="" class="background">
+    <section id="home" class="background">
         <div class="background-content" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
             <h2>European Restaurant </h2>
             <p>Come and experience it yourself!</p>
             <a href="#booking">
-                <button class="background-content btn" name="dangnhap_home">BOOK NOW</button>
-                <p>(Only members)</p>
+                <button class="background-content btn">BOOK NOW</button>
             </a>
         </div>
     </section>
@@ -235,11 +146,9 @@ if (isset($_POST['dangky_home'])) {
             </div>
         </div>
     </section>
-    <!--------------------------------------SIGNUP--------------------------------------->
 
 
     <!--------------------------------------------------------MENU---------------------------------------------------->
-
     <section id="menu" class="menu section-pading">
 
         <div class="container">
@@ -261,6 +170,7 @@ if (isset($_POST['dangky_home'])) {
                     <?php
                     }
                     ?>
+
                 </div>
             </div>
             <?php
@@ -280,12 +190,12 @@ if (isset($_POST['dangky_home'])) {
                         <div class="list-items">
                             <div class="list-item">
                                 <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <p><?php echo $row_product['sanpham_name'] ?></p>
+                                <h3><a style="cursor: pointer" href="detail_product.php?id=<?php echo $row_product['sanpham_id'] ?>"><?php echo $row_product['sanpham_name'] ?></a></h3>
                             </div>
                             <div class="list-price">
                                 <p><?php echo $row_product['sanpham_gia'] ?>$</p>
                             </div>
-                            <a href="addproduct.php?sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-plus"></i></a>
+                            <a style="cursor: pointer" href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-cart-plus"></i></a>
                         </div>
                     <?php
                     }
@@ -296,7 +206,8 @@ if (isset($_POST['dangky_home'])) {
             <?php
             }
             ?>
-        </div>
+
+
     </section>
 
 
@@ -367,6 +278,76 @@ if (isset($_POST['dangky_home'])) {
         </div>
 
     </section>
+
+    <!-----------------------------------------BOOKING---------------------------------------->
+    <section id='booking' class="booking section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="title">
+                    <h2>booking</h2>
+                </div>
+            </div>
+            <div class="booking-form">
+                <form action="./myweb.php" method="post">
+                    <h1>BOOKING FORM</h1>
+                    <p>PLEASE FILL OUT ALL FIELDS. THANKS!</p>
+                    <div class="row justify-content">
+                        <div class="booking-form-item">
+                            <label for="occasion" name="occasion"></label>
+                            <p>Occasion</p>
+                            <select id="occasion" name="occasion" required>
+                                <option value="Occasion"> Occasion</option>
+                                <option value="Birthday"> Birthday</option>
+                                <option value="Wedding"> Wedding</option>
+                                <option value="Wedding"> Team-party</option>
+                                <option value="Orther"> Orthers</option>
+                            </select>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Food name</p>
+                            <input type="text" placeholder="Food" id="food_name" name="food_name" required>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Room you want to use</p>
+                            <select id="loaiban" name="loaiban" required>
+                                <option value="Occasion"> Room</option>
+                                <option value="Birthday"> Couple</option>
+                                <option value="Wedding"> Family</option>
+                                <option value="Wedding"> Team-party</option>
+                                <option value="Wedding"> Orthers</option>
+                            </select>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Your name
+                            <p>
+                                <input type="text" placeholder="Name" id="kh_name" name="kh_name" required>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Your number
+                            <p>
+                                <input type="text" placeholder="Contact No." id="kh_phone" name="kh_phone" required>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Number of guests
+                            <p>
+                                <input type="number" placeholder="Quantity" id="songuoi" name="songuoi" required>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Day you will come</p>
+                            <input type="date" id="ngaythang" name="ngaythang" required>
+                        </div>
+                        <div class="booking-form-item">
+                            <p>Time you wil come</p>
+                            <input type="time" id="gio" name="gio" required>
+                        </div>
+                    </div>
+                    <button type="submit" name="booking">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
     <!-----------------------------------------FOOTER---------------------------------------->
 
     <section id="contact" class="footer">
@@ -415,24 +396,12 @@ if (isset($_POST['dangky_home'])) {
             }
         }
     </script>
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/countdowntime/countdowntime.js"></script>
+
 
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: 'Login_KR',
+                appId: '{your-app-id}',
                 cookie: true,
                 xfbml: true,
                 version: '{api-version}'
@@ -452,11 +421,8 @@ if (isset($_POST['dangky_home'])) {
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
     </script>
+
 </body>
 
 </html>

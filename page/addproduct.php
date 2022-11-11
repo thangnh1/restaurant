@@ -14,7 +14,7 @@ if (isset($_GET['tang'])) {
             $_SESSION['donhang'] = $sanpham;
         }
     }
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //giam so luong san pham
@@ -33,7 +33,7 @@ if (isset($_GET['giam'])) {
             $_SESSION['donhang'] = $sanpham;
         }
     }
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //xoa san pham
@@ -44,14 +44,14 @@ if (isset($_SESSION['donhang']) && isset($_GET['xoa'])) {
             $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'], 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
         }
         $_SESSION['donhang'] = $sanpham;
-        header('Location:order.php');
+        header('Location:cart.php');
     }
 }
 
 //xoa tat ca
 if (isset($_GET['xoatatca']) && $_GET['xoatatca'] == 1) {
     unset($_SESSION['donhang']);
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //them vao gio hang
@@ -92,5 +92,5 @@ if (!isset($_SESSION['dangnhap_home'])) {
     echo '<script language="javascript">';
     echo 'alert("Món đã được thêm vào giỏ hàng!")';
     echo '</script>';
-    echo '<meta http-equiv="refresh" content="0;url=login.php#menu">';
+    echo '<meta http-equiv="refresh" content="0;url=index.php#menu">';
 }
