@@ -3,16 +3,16 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE TABLE `tbl_acckh` (
-  `khachhang_id` int(15) NOT NULL,
-  `kh_user` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `kh_password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `kh_fullname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `kh_sdt` int(20) NOT NULL,
-  `kh_email` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+CREATE TABLE `tbl_use_account` (
+  `id` int(15) NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `fullname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` int(20) NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `tbl_acckh` (`khachhang_id`, `kh_user`, `kh_password`, `kh_fullname`, `kh_sdt`, `kh_email`) VALUES
+INSERT INTO `tbl_use_account` (`id`, `username`, `password`, `fullname`, `phone_number`, `email`) VALUES
 (60, 'thanh1@gmail.com', '805b346dd6c0d595ecb74f28e323afe3', 'Hieu Tran', 20202020, 'thanhkd1@gmail.com'),
 (61, 'kienck', '4297f44b13955235245b2497399d7a93', 'Trung Kiên', 20202020, 'kskdsakd@gmail.com');
 
@@ -42,7 +42,7 @@ INSERT INTO `tbl_category` (`category_id`, `category_name`) VALUES
 (10, 'DESSERT');
 
 
-CREATE TABLE `tbl_dondatban` (
+CREATE TABLE `tbl_table_booking` (
   `madondatban` int(255) NOT NULL,
   `ngaythang` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `maloaiban` varchar(20) COLLATE utf8_unicode_ci NOT NULL,

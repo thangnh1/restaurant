@@ -763,3 +763,24 @@ form {
     padding-top: 50px;
     color: #000000;
 }
+.detail{
+    height: auto;
+    width: 90%;
+    margin: 0 25%;
+}
+
+.product_image{
+    float: left;
+    width: 30%;
+}
+
+.product_detail{
+    float: left;
+    width: 50%;
+}
+
+.btn-add-to-cart{
+    padding: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+}

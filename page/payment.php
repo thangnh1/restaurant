@@ -1,18 +1,22 @@
 <?php
 session_start();
 include('../db/connect.php');
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 $khachhang_id = $_SESSION['khachhang_id'];
 $code_order = rand(0, 9999);
-$insert_order = "INSERT INTO tbl_order(id_kh, code_order, order_status) VALUE('" . $khachhang_id . "','" . $code_order . "',1)";
+$today = date("d.m.Y H:i:s");
+$today_ = date("d.m.Y");
+$insert_order = "INSERT INTO tbl_order(user_id, order_code, date, date_, order_status, payment_status) VALUE('" . $khachhang_id . "','" . $code_order . "', '" . $today . "', '" . $today_ . "', 1, 1)";
 $cart_query = mysqli_query($con, $insert_order);
 if ($insert_order) {
     foreach ($_SESSION['donhang'] as $key => $value) {
         $id_sanpham = $value['id'];
         $soluong = $value['soluong'];
-        $insert_order_detail = "INSERT INTO tbl_order_detail(id_sanpham, code_order, soluong) VALUE('" . $id_sanpham . "','" . $code_order . "','" . $soluong . "')";
+        $insert_order_detail = "INSERT INTO tbl_order_detail(product_id, order_code, quantity) VALUE('" . $id_sanpham . "','" . $code_order . "','" . $soluong . "')";
         mysqli_query($con, $insert_order_detail);
     }
 }
+unset($_SESSION['donhang']);
 ?>
 
 <!DOCTYPE html>

@@ -4,6 +4,7 @@ include('../db/connect.php')
 ?>
 
 <?php
+
 if (isset($_POST['dangnhap_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
@@ -12,21 +13,22 @@ if (isset($_POST['dangnhap_home'])) {
         echo 'alert("Tài khoản hoặc mật khẩu không được để trống!")';
         echo '</script>';
     } else {
-        $sql_select_dangnhap = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user' AND kh_password='$kh_password'");
+        $sql_select_dangnhap = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE username='$kh_user' AND password='$kh_password'");
         $count = mysqli_num_rows($sql_select_dangnhap);
         $row_login = mysqli_fetch_array($sql_select_dangnhap);
         if ($count > 0) {
-            $_SESSION['dangnhap_home'] = $row_login['kh_fullname'];
-            $_SESSION['khachhang_id'] = $row_login['khachhang_id'];
+            $_SESSION['dangnhap_home'] = $row_login['fullname'];
+            $_SESSION['khachhang_id'] = $row_login['id'];
+            echo '<script language="javascript">';
+            echo 'alert("Welcome to Restaurant!")';
+            echo '</script>';
         } else {
             echo '<script language="javascript">';
             echo 'alert("Something wrong with your user name or password!")';
             echo '</script>';
+            echo '<meta http-equiv="refresh" content="0;url=login_.php">';
         }
     }
-    echo '<script language="javascript">';
-    echo 'alert("Welcome to Restaurant!")';
-    echo '</script>';
 }
 ?>
 
@@ -160,13 +162,13 @@ if ($logout == 'logout') {
             <div class="row">
                 <div class="menu-title">
                     <?php
-                    $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id  ASC");
+                    $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY id  ASC");
                     ?>
 
                     <?php
                     while ($row_category = mysqli_fetch_array($sql_category)) {
                     ?>
-                        <button class="menu-button" data-title="<?php echo $row_category['category_id'] ?>"><?php echo $row_category['category_name'] ?></button>
+                        <button class="menu-button" data-title="<?php echo $row_category['id'] ?>"><?php echo $row_category['category_name'] ?></button>
                     <?php
                     }
                     ?>
@@ -179,23 +181,23 @@ if ($logout == 'logout') {
             <?php
             while ($row_category = mysqli_fetch_array($sql_category)) {
             ?>
-                <div class="menu-content " id="<?php echo $row_category['category_id'] ?>">
+                <div class="menu-content " id="<?php echo $row_category['id'] ?>">
                     <?php
-                    $id = $row_category['category_id'];
-                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_sanpham WHERE category_id = $id ");
+                    $id = $row_category['id'];
+                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_product WHERE category_id = $id ");
                     ?>
                     <?php
                     while ($row_product = mysqli_fetch_array($sql_product)) {
                     ?>
                         <div class="list-items">
                             <div class="list-item">
-                                <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <h3><a style="cursor: pointer" href="detail_product.php?id=<?php echo $row_product['sanpham_id'] ?>"><?php echo $row_product['sanpham_name'] ?></a></h3>
+                                <img src="../image/<?php echo $row_product['image'] ?>" alt="">
+                                <h3><a style="cursor: pointer" href="detail_product.php?id=<?php echo $row_product['id'] ?>"><?php echo $row_product['name'] ?></a></h3>
                             </div>
                             <div class="list-price">
-                                <p><?php echo $row_product['sanpham_gia'] ?>$</p>
+                                <p><?php echo number_format($row_product['price'], 0, ',', '.') . ' VNĐ' ?></p>
                             </div>
-                            <a style="cursor: pointer" href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-cart-plus"></i></a>
+                            <a style="cursor: pointer" href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['id'] ?>"><i class="fas fa-cart-plus"></i></a>
                         </div>
                     <?php
                     }
@@ -387,7 +389,7 @@ if ($logout == 'logout') {
     <script>
         AOS.init();
         // Get the modal
-        var modal = document.getElementById('id01');
+        var modal = document.getElementById('id03');
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {

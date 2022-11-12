@@ -9,29 +9,29 @@ session_start();
 <?php
 if (isset($_GET['xoadonhang'])) {
 	$madonhang = $_GET['xoadonhang'];
-	$sql_delete = mysqli_query($con, "DELETE FROM tbl_dondatmon WHERE madon='$madonhang'");
+	$sql_delete = mysqli_query($con, "DELETE FROM tbl_order WHERE id='$madonhang'");
 	header('Location:xulydonhang.php');
 }
 if (isset($_GET['giao'])) {
 	$madonhang = $_GET['giao'];
-	$sql_deliver = mysqli_query($con, "UPDATE tbl_dondatmon SET tinhtrang = '2' WHERE madon='$madonhang'");
+	$sql_deliver = mysqli_query($con, "UPDATE tbl_order SET tinhtrang = '2' WHERE id='$madonhang'");
 	header('Location:xulydonhang.php');
 }
 if (isset($_GET['huydon'])) {
 	$madonhang = $_GET['huydon'];
-	$sql_deliver = mysqli_query($con, "UPDATE tbl_dondatmon SET tinhtrang = '3' WHERE madon='$madonhang'");
+	$sql_deliver = mysqli_query($con, "UPDATE tbl_order SET tinhtrang = '3' WHERE id='$madonhang'");
 	header('Location:xulydonhang.php');
 }
 if (isset($_GET['hoanthanh'])) {
 	$madonhang = $_GET['hoanthanh'];
-	$sql_completed = mysqli_query($con, "UPDATE tbl_dondatmon SET tinhtrang = '1' WHERE madon='$madonhang'");
+	$sql_completed = mysqli_query($con, "UPDATE tbl_order SET tinhtrang = '1' WHERE id='$madonhang'");
 	header('Location:xulydonhang.php');
-} 
+}
 if (isset($_GET['dangxuly'])) {
 	$madonhang = $_GET['dangxuly'];
-	$sql_completed = mysqli_query($con, "UPDATE tbl_dondatmon SET tinhtrang = '0' WHERE madon='$madonhang'");
+	$sql_completed = mysqli_query($con, "UPDATE tbl_order SET tinhtrang = '0' WHERE id='$madonhang'");
 	header('Location:xulydonhang.php');
-} 
+}
 //$sql_update_donhang = mysqli_query($con, "UPDATE tbl_donhang SET huydon='$huydon' WHERE madonhang='$magiaodich'");
 //$sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huydon' WHERE magiaodich='$magiaodich'");
 
@@ -46,7 +46,7 @@ if (isset($_GET['dangxuly'])) {
 </head>
 
 <body>
-<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
+	<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
@@ -70,10 +70,10 @@ if (isset($_GET['dangxuly'])) {
 			<?php
 			if (isset($_GET['quanly']) == 'xemdonhang') {
 				$madonhang = $_GET['madonhang'];
-				$sql_chitiet = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madonhang'");
+				$sql_chitiet = mysqli_query($con, "SELECT * FROM tbl_order_detail WHERE id='$madonhang'");
 			?>
 				<div class="col-md-12">
-					<h4 align="center" >XEM CHI TIẾT ĐƠN HÀNG</h4>
+					<h4 align="center">XEM CHI TIẾT ĐƠN HÀNG</h4>
 					<form action="" method="POST">
 						<table class="table table-bordered ">
 							<tr>
@@ -81,33 +81,33 @@ if (isset($_GET['dangxuly'])) {
 								<th>Món ăn</th>
 								<th>Đơn giá</th>
 								<th>Số lượng</th>
-															
-							</tr>
-							<?php							
-							while ($row_chitietdonhang = mysqli_fetch_array($sql_chitiet)) {
-							$id_monan = $row_chitietdonhang['monan_id'];
-							$row_monan	= mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$id_monan'");
-							if($row_chitietmonan = mysqli_fetch_array($row_monan)){							
-							?>
-								<tr>
 
-									<td><?php echo $row_chitietdonhang['madon']; ?></td>
-									<td><?php echo $row_chitietmonan['tenmon']; ?></td>
-									<td><?php echo $row_chitietmonan['giamonan']; ?>$</td>
-									<td><?php echo $row_chitietdonhang['soluong']; ?></td>
-									
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madon'] ?>">
-								</tr>
+							</tr>
+							<?php
+							while ($row_chitietdonhang = mysqli_fetch_array($sql_chitiet)) {
+								$id_monan = $row_chitietdonhang['product_id'];
+								$row_monan	= mysqli_query($con, "SELECT * FROM tbl_product WHERE id ='$id_monan'");
+								if ($row_chitietmonan = mysqli_fetch_array($row_monan)) {
+							?>
+									<tr>
+
+										<td><?php echo $row_chitietdonhang['order_code']; ?></td>
+										<td><?php echo $row_chitietmonan['name']; ?></td>
+										<td><?php echo $row_chitietmonan['price']; ?>$</td>
+										<td><?php echo $row_chitietdonhang['quantity']; ?></td>
+
+										<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['id'] ?>">
+									</tr>
 							<?php
 								}
 							}
 							?>
 						</table>
 
-						
-						
 
-						
+
+
+
 						<input type="submit" value="Cập nhật đơn hàng" name="capnhatdonhang" class="btn btn-success">
 					</form>
 				</div>
@@ -123,8 +123,69 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG CHƯA XỬ LÍ</h4>
 				<?php
-				$today = date("d/m/Y");
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_dondatmon WHERE tinhtrang = '0' and ngaythang = '$today'");
+				$today = date("d.m.Y");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '1' and date_ = '$today'");
+				?>
+				<table class="table table-bordered ">
+					<tr>
+						<th>Thứ tự</th>
+						<th>Mã đơn hàng</th>
+						<th>Tình trạng đơn hàng</th>
+						<th>Tên khách hàng</th>
+						<th>Thời gian đặt</th>
+						<th>Địa chỉ</th>
+						<th>TỔNG TIỀN</th>
+						<th>Quản lý</th>
+					</tr>
+					<?php
+					$i = 0;
+					while ($row_donhang = mysqli_fetch_array($sql_select)) {
+						$madon = $row_donhang['order_code'];
+
+						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_order_detail WHERE order_code='$madon' ");
+						$tong = 0;
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)) {
+							$monan_id = $row_chitiet['product_id'];
+							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_product WHERE id ='$monan_id' ");
+							if ($row_monan =  mysqli_fetch_array($sql_monan)) {
+								$giamon = $row_monan['price'];
+								$tong +=  $giamon * $row_chitiet['quantity'];
+							}
+						}
+						$i++;
+					?>
+						<tr>
+							<td><?php echo $i; ?></td>
+							<td><?php echo $row_donhang['order_code']; ?></td>
+							<td><?php
+								if ($row_donhang['order_status'] == 0) {
+									echo 'Chưa xử lý';
+								} else if ($row_donhang['order_status'] == 1) {
+									echo 'Đã hoàn thành';
+								} else if ($row_donhang['order_status'] == 2) {
+									echo 'Đang giao hàng';
+								} else {
+									echo 'Đã hủy';
+								}
+								?></td>
+							<td><?php echo $row_donhang['user_id']; ?></td>
+							<td><?php echo $row_donhang['date'] ?></td>
+
+							<td><?php echo $row_donhang['address'] ?></td>
+							<td><?php echo $tong ?>$</td>
+							<td><a href="?huydon=<?php echo $row_donhang['order_code'] ?>">Hủy</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['order_code'] ?>"> Xem chi tiết </a>|| <a href="?giao=<?php echo $row_donhang['order_code'] ?>"> Giao</a></td>
+						</tr>
+					<?php
+					}
+					?>
+				</table>
+			</div>
+
+			<div class="col-md-12">
+				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐANG VẬN CHUYỂN</h4>
+				<?php
+				$today = date("d.m.Y");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '2' and substr(date_,0,10) = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -141,78 +202,15 @@ if (isset($_GET['dangxuly'])) {
 					$i = 0;
 					while ($row_donhang = mysqli_fetch_array($sql_select)) {
 						$madon = $row_donhang['madon'];
-						
 						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon' ");
-						$tong = 0;						
-						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
-							$monan_id = $row_chitiet['monan_id'];							
-							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id' ");
-							if($row_monan =  mysqli_fetch_array($sql_monan)){
-								$giamon = $row_monan['giamonan'];
-								$tong +=  $giamon*$row_chitiet['soluong'];
-							}
-							
-						}
-						$i++;
-					?>
-						<tr>
-							<td><?php echo $i; ?></td>
-							<td><?php echo $row_donhang['madon']; ?></td>
-							<td><?php
-								if ($row_donhang['tinhtrang'] == 0) {
-									echo 'Chưa xử lý';
-								} else if($row_donhang['tinhtrang'] == 1){
-									echo 'Đã hoàn thành';
-								} else if($row_donhang['tinhtrang'] == 2){
-									echo 'Đang giao hàng';
-								}else{
-									echo 'Đã hủy';
-								}
-								?></td>
-							<td><?php echo $row_donhang['kh_name']; ?></td>
-							<td><?php echo $row_donhang['ngaythang'] ?></td>
-							
-							<td><?php echo $row_donhang['kh_address'] ?></td>
-							<td><?php echo $tong ?>$</td>
-							<td><a href="?huydon=<?php echo $row_donhang['madon'] ?>">Hủy</a> || <a href="?quanly=xemdonhang&madonhang=<?php echo $row_donhang['madon'] ?>"> Xem chi tiết </a>|| <a href="?giao=<?php echo $row_donhang['madon'] ?>"> Giao</a></td>
-						</tr>
-					<?php
-					}
-					?>
-				</table>
-			</div>	
-
-			<div class="col-md-12">
-				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐANG VẬN CHUYỂN</h4>
-				<?php
-				$today = date("d/m/Y");
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_dondatmon WHERE tinhtrang = '2' and ngaythang = '$today'");
-				?>
-				<table class="table table-bordered ">
-					<tr>
-						<th>Thứ tự</th>
-						<th>Mã đơn hàng</th>
-						<th>Tình trạng đơn hàng</th>
-						<th>Tên khách hàng</th>
-						<th>Ngày đặt</th>
-						<th>Địa chỉ</th>
-						<th>TỔNG TIỀN</th>
-						<th>Quản lý</th>
-					</tr>
-					<?php
-					$i = 0;
-					while ($row_donhang = mysqli_fetch_array($sql_select)) {
-						$madon = $row_donhang['madon'];						
-						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon' ");
-						$tong = 0;						
-						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
+						$tong = 0;
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)) {
 							$monan_id = $row_chitiet['monan_id'];
 							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
-							if($row_monan =  mysqli_fetch_array($sql_monan)){
+							if ($row_monan =  mysqli_fetch_array($sql_monan)) {
 								$giamon = $row_monan['giamonan'];
-								$tong +=  $giamon*$row_chitiet['soluong'];
+								$tong +=  $giamon * $row_chitiet['soluong'];
 							}
-							
 						}
 						$i++;
 					?>
@@ -222,11 +220,11 @@ if (isset($_GET['dangxuly'])) {
 							<td><?php
 								if ($row_donhang['tinhtrang'] == 0) {
 									echo 'Đang chờ xử lý';
-								} else if($row_donhang['tinhtrang'] == 1){
+								} else if ($row_donhang['tinhtrang'] == 1) {
 									echo 'Đã hoàn thành';
-								} else if($row_donhang['tinhtrang'] == 2){
+								} else if ($row_donhang['tinhtrang'] == 2) {
 									echo 'Đang giao hàng';
-								}else{
+								} else {
 									echo 'Đã hủy';
 								}
 								?></td>
@@ -234,14 +232,14 @@ if (isset($_GET['dangxuly'])) {
 							<td><?php echo $row_donhang['ngaythang'] ?></td>
 							<td><?php echo $row_donhang['kh_address'] ?></td>
 							<td><?php echo $tong ?>$</td>
-							<td><a href="?huydon=<?php echo $row_donhang['madon'] ?>">Hủy</a> ||  <a href="?hoanthanh=<?php echo $row_donhang['madon'] ?>"> Hoàn thành</a></td>
+							<td><a href="?huydon=<?php echo $row_donhang['madon'] ?>">Hủy</a> || <a href="?hoanthanh=<?php echo $row_donhang['madon'] ?>"> Hoàn thành</a></td>
 						</tr>
 					<?php
 					}
 					?>
 				</table>
-			</div>	
-			
+			</div>
+
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐÃ XỬ LÍ</h4>
 				<?php
@@ -264,15 +262,14 @@ if (isset($_GET['dangxuly'])) {
 					while ($row_donhang = mysqli_fetch_array($sql_select)) {
 						$madon = $row_donhang['madon'];
 						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon'");
-						$tong = 0;						
-						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
+						$tong = 0;
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)) {
 							$monan_id = $row_chitiet['monan_id'];
 							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
-							if($row_monan =  mysqli_fetch_array($sql_monan)){
+							if ($row_monan =  mysqli_fetch_array($sql_monan)) {
 								$giamon = $row_monan['giamonan'];
-								$tong +=  $giamon*$row_chitiet['soluong'];
+								$tong +=  $giamon * $row_chitiet['soluong'];
 							}
-							
 						}
 						$i++;
 					?>
@@ -282,11 +279,11 @@ if (isset($_GET['dangxuly'])) {
 							<td><?php
 								if ($row_donhang['tinhtrang'] == 0) {
 									echo 'Chưa xử lý';
-								} else if($row_donhang['tinhtrang'] == 1){
+								} else if ($row_donhang['tinhtrang'] == 1) {
 									echo 'Đã hoàn thành';
-								} else if($row_donhang['tinhtrang'] == 2){
+								} else if ($row_donhang['tinhtrang'] == 2) {
 									echo 'Đang giao hàng';
-								}else{
+								} else {
 									echo 'Đã hủy';
 								}
 								?></td>
@@ -300,7 +297,7 @@ if (isset($_GET['dangxuly'])) {
 					}
 					?>
 				</table>
-			</div>	
+			</div>
 
 
 			<div class="col-md-12">
@@ -325,14 +322,14 @@ if (isset($_GET['dangxuly'])) {
 					while ($row_donhang = mysqli_fetch_array($sql_select)) {
 						$madon = $row_donhang['madon'];
 						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon'");
-						$tong = 0;						
-						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)){
+						$tong = 0;
+						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)) {
 							$monan_id = $row_chitiet['monan_id'];
 							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
-							if($row_monan =  mysqli_fetch_array($sql_monan)){
+							if ($row_monan =  mysqli_fetch_array($sql_monan)) {
 								$giamon = $row_monan['giamonan'];
-								$tong +=  $giamon*$row_chitiet['soluong'];
-							}							
+								$tong +=  $giamon * $row_chitiet['soluong'];
+							}
 						}
 						$i++;
 					?>
@@ -342,11 +339,11 @@ if (isset($_GET['dangxuly'])) {
 							<td><?php
 								if ($row_donhang['tinhtrang'] == 0) {
 									echo 'Chưa xử lý';
-								} else if($row_donhang['tinhtrang'] == 1){
+								} else if ($row_donhang['tinhtrang'] == 1) {
 									echo 'Đã hoàn thành';
-								}else if($row_donhang['tinhtrang'] == 2){
+								} else if ($row_donhang['tinhtrang'] == 2) {
 									echo 'Đang giao hàng';
-								}else{
+								} else {
 									echo 'Đã hủy';
 								}
 								?></td>
@@ -360,7 +357,7 @@ if (isset($_GET['dangxuly'])) {
 					}
 					?>
 				</table>
-			</div>	
+			</div>
 		</div>
 	</div>
 

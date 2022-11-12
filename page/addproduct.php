@@ -63,12 +63,15 @@ if (!isset($_SESSION['dangnhap_home'])) {
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'add') {
         $id = $_GET['sanpham_id'];
-        $soluong = 1;
-        $sql = "SELECT * FROM tbl_sanpham WHERE sanpham_id ='" . $id . "' LIMIT 1";
+        if (isset($_GET['sl']))
+            $soluong = $_GET['sl'];
+        else
+            $soluong = 1;
+        $sql = "SELECT * FROM tbl_product WHERE id ='" . $id . "' LIMIT 1";
         $query = mysqli_query($con, $sql);
         $row = mysqli_fetch_array($query);
         if ($row) {
-            $new_product = array(array('sanpham_name' => $row['sanpham_name'], 'id' => $id, 'sanpham_gia' => $row['sanpham_gia'], 'soluong' => $soluong, 'sanpham_image' => $row['sanpham_image'], 'sanpham_id' => $row['sanpham_id']));
+            $new_product = array(array('sanpham_name' => $row['name'], 'id' => $id, 'sanpham_gia' => $row['price'], 'soluong' => $soluong, 'sanpham_image' => $row['image'], 'sanpham_id' => $row['id']));
             if (isset($_SESSION['donhang'])) {
                 $found = false;
                 foreach ($_SESSION['donhang'] as $donhang_sp) {

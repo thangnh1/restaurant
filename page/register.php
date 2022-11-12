@@ -10,12 +10,12 @@ if (isset($_POST['dangky_home'])) {
     $kh_sdt = $_POST['kh_sdt'];
     $kh_email = $_POST['kh_email'];
 
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
+    $check = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE email='$kh_email' or username='$kh_user'");
     $count = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
-    $count1 = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
-    $count2 = mysqli_num_rows($check);
+    $check1 = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE email='$kh_email'");
+    $count1 = mysqli_num_rows($check1);
+    $check2 = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE user='$kh_user'");
+    $count2 = mysqli_num_rows($check2);
     if ($count > 0) {
         if ($count1 > 0 && $count2 > 0) {
             echo '<script language="javascript">';
@@ -34,7 +34,7 @@ if (isset($_POST['dangky_home'])) {
             echo '</script>';
         }
     } else {
-        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
+        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_user_account(username,password,fullname,phone_number,email)
         values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
         //$check = mysqli_query($con, $sql_insert_dangky);
         //$check = $sql_insert_dangky;

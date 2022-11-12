@@ -85,7 +85,7 @@ if (isset($_SESSION['donhang'])) {
                     <hr class="my-4">
 
                     <div class="pt-5 d-flex justify-content-between align-items-center">
-                      <h6 class="mb-0"><a href="index.php" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                      <h6 class="mb-0"><a style="cursor: pointer" href="index.php" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                       <h6 style="float: right"><a href="addproduct.php?xoatatca=1">Xoá tất cả</a></h6>
                     </div>
                   </div>
@@ -102,9 +102,11 @@ if (isset($_SESSION['donhang'])) {
                       <h5 class="text-uppercase">Total price</h5>
                       <h5><?php echo number_format($tongtien, 0, ',', '.') . ' VNĐ' ?></h5>
                     </div>
-
-                    <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Go to Payment</button></a>
-
+                    <?php if (isset($_SESSION['donhang'])) { ?>
+                      <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Go to Payment</button></a>
+                    <?php } else { ?>
+                      <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" disabled>Go to Payment</button></a>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
