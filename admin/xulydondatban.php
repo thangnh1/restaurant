@@ -13,7 +13,7 @@ if (isset($_POST['capnhatdonhang'])) {
 <?php
 if (isset($_GET['xoadondatban'])) {
 	$madondatban = $_GET['xoadondatban'];
-	$sql_delete = mysqli_query($con, "DELETE FROM tbl_dondatban WHERE madondatban='$madondatban'");
+	$sql_delete = mysqli_query($con, "DELETE FROM tbl_table_booking WHERE id='$madondatban'");
 	header('Location:xulydondatban.php');
 }
 if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
@@ -57,9 +57,9 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 	<div class="container-fluid">
 		<div class="row">
 			<?php
-			if (isset($_GET['quanly']) == 'xemdonhang') {
-				$madonhang = $_GET['madonhang'];
-				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_dondatban ");
+			if (isset($_GET['xemdondatban'])) {
+				$madonhang = $_GET['xemdondatban'];
+				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_table_booking,tbl_user_account Where tbl_table_booking.user_id=tbl_user_account.id and tbl_table_booking.id = '$madonhang'");
 			?>
 				<div class="col-md-12">
 					<h4 align="center" >DANH SÁCH ĐƠN ĐẶT BÀN</h4>
@@ -67,7 +67,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 						<table class="table table-bordered ">
 							<tr>
 								<th>Thứ tự</th>
-								<th>Tên khách hànghàng</th>
+								<th>Tên khách hàng</th>
 								<th>SĐT khách hàng</th>
 								<th>Địa chỉ mail</th>	
 								<th>Tên tài khoản</th>							
@@ -79,11 +79,11 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 							?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td><?php echo $row_donhang['kh_fullname']; ?></td>
-									<td><?php echo $row_donhang['kh_sdt']; ?></td>
-									<td><?php echo $row_donhang['kh_email']; ?></td>
-									<td><?php echo $row_donhang['kh_user']; ?></td>										
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madonhang'] ?>">
+									<td><?php echo $row_donhang['fullname']; ?></td>
+									<td><?php echo $row_donhang['phone_number']; ?></td>
+									<td><?php echo $row_donhang['email']; ?></td>
+									<td><?php echo $row_donhang['username']; ?></td>										
+									<input type="hidden" name="khachhang_xuly" value="<?php echo $row_kh['id'] ?>">
 								</tr>
 							<?php
 							}
@@ -97,36 +97,33 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH ĐƠN ĐẶT BÀN</h4>
 				<?php
-				$sql_dondatban = mysqli_query($con, "SELECT * FROM tbl_dondatban ");
+				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_table_booking,tbl_user_account Where tbl_table_booking.user_id=tbl_user_account.id");
 				?>
 				<table class="table table-bordered ">
 							<tr>
 								<th>Thứ tự</th>
-								<th>Tên khách hàng hàng</th>
-								<th>SĐT khách hàng</th>
-								<th>NGÀY ĐẶT</th>
-                                <th>GIỜ</th>
-								<th>SỐ NGƯỜI</th>	
-								<th>QUẢN LÝ</th>					
+								<th>Tên khách hàng</th>	
+								<th>Mã đơn đặt bàn</th>	
+								<th>Ngày đặt</th>	
+								<th>Quản lí</th>					
 							</tr>
 							<?php
 							$i = 0;
-							while ($row_dondatban = mysqli_fetch_array($sql_dondatban)) {
+							while ($row_kh = mysqli_fetch_array($sql_acckh)) {
 								$i++;
 							?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td><?php echo $row_dondatban['kh_name']; ?></td>
-									<td><?php echo $row_dondatban['kh_phone']; ?></td>
-                                    <td><?php echo $row_dondatban['ngaythang']; ?></td>
-                                    <td><?php echo $row_dondatban['gio']; ?></td>
-									<td><?php echo $row_dondatban['songuoi']; ?></td>
-									<td><a href="?xoadondatban=<?php echo $row_dondatban['madondatban'] ?>">Xóa</a></td>
+									<td><?php echo $row_donhang['fullname']; ?></td>
+									<td><?php echo $row_donhang['tbl_table_booking.id']; ?></td>	
+									td><?php echo $row_donhang['date']; ?></td>	
+									<td><a href="?xemdondatban=<?php echo $row_sp['tbl_table_booking.id'] ?>">Xóa</a> || <a href="xulysanpham.php?quanly=capnhat&capnhat_id=<?php echo $row_sp['tbl_table_booking.id'] ?>">Sửa</a></td>									
+									<input type="hidden" name="dondatban_xuly" value="<?php echo $row_kh['tbl_table_booking.id'] ?>">
 								</tr>
 							<?php
 							}
 							?>
-						</table>
+				</table>
 			</div>
 		</div>
 	</div>

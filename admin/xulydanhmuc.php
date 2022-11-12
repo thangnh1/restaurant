@@ -9,12 +9,12 @@ if (isset($_POST['themdanhmuc'])) {
 } elseif (isset($_POST['capnhatdanhmuc'])) {
     $id_post = $_POST['id_danhmuc'];
     $tendanhmuc = $_POST['danhmuc'];
-    $sql_update = mysqli_query($con, "UPDATE tbl_category SET category_name='$tendanhmuc' WHERE category_id='$id_post'");
+    $sql_update = mysqli_query($con, "UPDATE tbl_category SET category_name='$tendanhmuc' WHERE id='$id_post'");
     header('Location:xulydanhmuc.php');
 }
 if (isset($_GET['xoa'])) {
     $id = $_GET['xoa'];
-    $sql_xoa = mysqli_query($con, "DELETE FROM tbl_category WHERE category_id='$id'");
+    $sql_xoa = mysqli_query($con, "DELETE FROM tbl_category WHERE id='$id'");
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ if (isset($_GET['xoa'])) {
             <?php
             if (isset($_GET['quanly']) == 'capnhat') {
                 $id_capnhat = $_GET['id'];
-                $sql_capnhat = mysqli_query($con, "SELECT * FROM tbl_category WHERE category_id='$id_capnhat'");
+                $sql_capnhat = mysqli_query($con, "SELECT * FROM tbl_category WHERE id='$id_capnhat'");
                 $row_capnhat = mysqli_fetch_array($sql_capnhat);
             ?>
                 <div class="col-md-4">
@@ -62,7 +62,7 @@ if (isset($_GET['xoa'])) {
                     <label>Tên danh mục</label>
                     <form action="" method="POST">
                         <input type="text" class="form-control" name="danhmuc" value="<?php echo $row_capnhat['category_name'] ?>"><br>
-                        <input type="hidden" class="form-control" name="id_danhmuc" value="<?php echo $row_capnhat['category_id'] ?>">
+                        <input type="hidden" class="form-control" name="id_danhmuc" value="<?php echo $row_capnhat['id'] ?>">
 
                         <input type="submit" name="capnhatdanhmuc" value="Cập nhật danh mục" class="btn btn-default">
                     </form>
@@ -85,7 +85,7 @@ if (isset($_GET['xoa'])) {
             <div class="col-md-8">
                 <h4>Liệt kê danh mục</h4>
                 <?php
-                $sql_select = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id DESC");
+                $sql_select = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY id DESC");
                 ?>
                 <table class="table table-bordered ">
                     <tr>
@@ -101,7 +101,7 @@ if (isset($_GET['xoa'])) {
                         <tr>
                             <td><?php echo $i; ?></td>
                             <td><?php echo $row_category['category_name'] ?></td>
-                            <td><a href="?xoa=<?php echo $row_category['category_id'] ?>">Xóa</a> || <a href="?quanly=capnhat&id=<?php echo $row_category['category_id'] ?>">Cập nhật</a></td>
+                            <td><a href="?xoa=<?php echo $row_category['id'] ?>">Xóa</a> || <a href="?quanly=capnhat&id=<?php echo $row_category['id'] ?>">Cập nhật</a></td>
                         </tr>
                     <?php
                     }
