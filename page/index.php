@@ -191,7 +191,7 @@ if ($logout == 'logout') {
                     ?>
                         <div class="list-items">
                             <div class="list-item">
-                                <img src="../image/<?php echo $row_product['image'] ?>" alt="">
+                                <img src="../admin/image_uploads/<?php echo $row_product['image'] ?>" alt="">
                                 <h3><a style="cursor: pointer" href="detail_product.php?id=<?php echo $row_product['id'] ?>"><?php echo $row_product['name'] ?></a></h3>
                             </div>
                             <div class="list-price">
