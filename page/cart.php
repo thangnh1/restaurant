@@ -58,7 +58,7 @@ if (isset($_SESSION['donhang'])) {
 
                         <div class="row mb-4 d-flex justify-content-between align-items-center">
                           <div class="col-md-2 col-lg-2 col-xl-2">
-                            <img src="../image/<?php echo $donhang_sp['sanpham_image'] ?>" class="img-fluid rounded-3" alt="">
+                            <img src="../admin/image_uploads/<?php echo $donhang_sp['sanpham_image'] ?>" class="img-fluid rounded-3" alt="">
                           </div>
                           <div class="col-md-3 col-lg-3 col-xl-3">
                             <h6 class="text-black mb-0"><?php echo $donhang_sp['sanpham_name'] ?></h6>
@@ -96,17 +96,35 @@ if (isset($_SESSION['donhang'])) {
                     <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                     <hr class="my-4">
 
-
-
-                    <div class="d-flex justify-content-between mb-5">
+                    <div class="d-flex justify-content-between mb-3">
                       <h5 class="text-uppercase">Total price</h5>
                       <h5><?php echo number_format($tongtien, 0, ',', '.') . ' VNĐ' ?></h5>
                     </div>
-                    <?php if (isset($_SESSION['donhang'])) { ?>
-                      <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Go to Payment</button></a>
-                    <?php } else { ?>
-                      <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" disabled>Go to Payment</button></a>
-                    <?php } ?>
+
+                    <div class="mb-4 pb-2">
+                      <p>Note</p>
+                      <input type="text">
+                    </div>
+
+                    <div class="mb-4 pb-2">
+                      <p>Address Shipping</p>
+                      <input type="text">
+                    </div>
+
+                    <div class="mb-4 pb-2">
+                      <p>Choose payment method</p>
+                      <form action="payment.php" method="post" name="payment">
+                        <input class="payment-method" type="radio" name="payment-method" value="tt" checked><label for="tt">Thanh toán khi nhận hàng</label><br>
+                        <input class="payment-method" type="radio" name="payment-method" value="vnpay"><label for="vnpay">VNPay</label><br>
+                        <input class="payment-method" type="radio" name="payment-method" value="momo"><label for="momo">Momo</label><br>
+                        <?php if (isset($_SESSION['donhang'])) { ?>
+                          <a href="" style="text-decoration: none; color:white;"><input style="margin-top: 20px;" type="submit" id="submit" value="Go to Payment" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark"></label></input></a>
+                        <?php } else { ?>
+                          <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" disabled>Go to Payment</button></a>
+                        <?php } ?>
+                      </form>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -117,3 +135,7 @@ if (isset($_SESSION['donhang'])) {
     </div>
   </section>
 </body>
+
+<!-- 0 - chưa thanh toán
+1 - chờ thanh toán
+2 - đã thanh toán -->

@@ -653,7 +653,7 @@ hr {
     color: black;
 }
 /*-------------------------------------------BOOKING---------------------------------------------*/
-form {
+.form-booking {
     text-align: center;
     padding-top: 30px;
     margin-left: 5%;
@@ -783,4 +783,8 @@ form {
     padding: 10px;
     border-radius: 25px;
     cursor: pointer;
+}
+
+.payment-method{
+    margin-right: 10px;
 }

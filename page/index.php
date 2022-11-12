@@ -290,7 +290,7 @@ if ($logout == 'logout') {
                 </div>
             </div>
             <div class="booking-form">
-                <form action="./myweb.php" method="post">
+                <form class="form-booking" action="./myweb.php" method="post">
                     <h1>BOOKING FORM</h1>
                     <p>PLEASE FILL OUT ALL FIELDS. THANKS!</p>
                     <div class="row justify-content">
