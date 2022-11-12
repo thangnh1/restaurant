@@ -4,8 +4,8 @@ include('../db/connect.php');
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $khachhang_id = $_SESSION['khachhang_id'];
 $code_order = rand(0, 9999);
-$today = date("d.m.Y H:i:s");
-$today_ = date("d.m.Y");
+$today = date("d/m/Y H:i:s");
+$today_ = date("d/m/Y");
 
 
 

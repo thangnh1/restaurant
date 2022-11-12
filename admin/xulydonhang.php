@@ -123,8 +123,8 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG CHƯA XỬ LÍ</h4>
 				<?php
-				$today = date("d.m.Y");
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '0' and date_ = '$today'");
+				$today = date("d/m/Y");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '0' and date = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -189,7 +189,7 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐANG VẬN CHUYỂN</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '2' and date_ = '$today'");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '2' and date = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -245,7 +245,7 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐÃ XỬ LÍ</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '1' and date_ = '$today'");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '1' and date = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -304,7 +304,7 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐÃ HỦY</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '3' and date_ = '$today'");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '3' and date = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
