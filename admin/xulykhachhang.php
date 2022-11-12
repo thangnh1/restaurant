@@ -6,14 +6,14 @@ session_start();
 if (isset($_POST['capnhatdonhang'])) {
 	$xuly = $_POST['xuly'];
 	$madonhang = $_POST['mahang_xuly'];
-	$sql_update_donhang = mysqli_query($con, "UPDATE tbl_donhang SET tinhtrang='$xuly' WHERE madonhang='$madonhang'");
+	$sql_update_donhang = mysqli_query($con, "UPDATE tbl_order SET order_status='$xuly' WHERE order_code='$madonhang'");
 }
 
 ?>
 <?php
 if (isset($_GET['xoadonhang'])) {
 	$madonhang = $_GET['xoadonhang'];
-	$sql_delete = mysqli_query($con, "DELETE FROM tbl_donhang WHERE madonhang='$madonhang'");
+	$sql_delete = mysqli_query($con, "DELETE FROM tbl_order WHERE order_code='$madonhang'");
 	header('Location:xulydonhang.php');
 }
 if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
@@ -38,7 +38,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 </head>
 
 <body>
-<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
+	<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
@@ -62,18 +62,18 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 			<?php
 			if (isset($_GET['quanly']) == 'xemdonhang') {
 				$madonhang = $_GET['madonhang'];
-				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_acckh ");
+				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_user_account ");
 			?>
 				<div class="col-md-12">
-					<h4 align="center" >DANH SÁCH KHÁCH HÀNG</h4>
+					<h4 align="center">DANH SÁCH KHÁCH HÀNG</h4>
 					<form action="" method="POST">
 						<table class="table table-bordered ">
 							<tr>
 								<th>Thứ tự</th>
 								<th>Tên khách hànghàng</th>
 								<th>SĐT khách hàng</th>
-								<th>Địa chỉ mail</th>	
-								<th>Tên tài khoản</th>							
+								<th>Địa chỉ mail</th>
+								<th>Tên tài khoản</th>
 							</tr>
 							<?php
 							$i = 0;
@@ -82,11 +82,11 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 							?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td><?php echo $row_donhang['kh_fullname']; ?></td>
-									<td><?php echo $row_donhang['kh_sdt']; ?></td>
-									<td><?php echo $row_donhang['kh_email']; ?></td>
-									<td><?php echo $row_donhang['kh_user']; ?></td>										
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madonhang'] ?>">
+									<td><?php echo $row_kh['fullname']; ?></td>
+									<td><?php echo $row_kh['phone_number']; ?></td>
+									<td><?php echo $row_kh['email']; ?></td>
+									<td><?php echo $row_kh['username']; ?></td>
+									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['order_code'] ?>">
 								</tr>
 							<?php
 							}
@@ -100,33 +100,33 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ KHÁCH HÀNG</h4>
 				<?php
-				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_acckh ");
+				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_user_account ");
 				?>
 				<table class="table table-bordered ">
-							<tr>
-								<th>Thứ tự</th>
-								<th>Tên khách hànghàng</th>
-								<th>SĐT khách hàng</th>
-								<th>Địa chỉ mail</th>	
-								<th>Tên tài khoản</th>							
-							</tr>
-							<?php
-							$i = 0;
-							while ($row_kh = mysqli_fetch_array($sql_acckh)) {
-								$i++;
-							?>
-								<tr>
-									<td><?php echo $i; ?></td>
-									<td><?php echo $row_kh['kh_fullname']; ?></td>
-									<td><?php echo $row_kh['kh_sdt']; ?></td>
-									<td><?php echo $row_kh['kh_email']; ?></td>
-									<td><?php echo $row_kh['kh_user']; ?></td>										
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madonhang'] ?>">
-								</tr>
-							<?php
-							}
-							?>
-						</table>
+					<tr>
+						<th>Thứ tự</th>
+						<th>Tên khách hànghàng</th>
+						<th>SĐT khách hàng</th>
+						<th>Địa chỉ mail</th>
+						<th>Tên tài khoản</th>
+					</tr>
+					<?php
+					$i = 0;
+					while ($row_kh = mysqli_fetch_array($sql_acckh)) {
+						$i++;
+					?>
+						<tr>
+							<td><?php echo $i; ?></td>
+							<td><?php echo $row_kh['fullname']; ?></td>
+							<td><?php echo $row_kh['phone_number']; ?></td>
+							<td><?php echo $row_kh['email']; ?></td>
+							<td><?php echo $row_kh['username']; ?></td>
+							<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['order_code'] ?>">
+						</tr>
+					<?php
+					}
+					?>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -8,44 +8,44 @@ if (isset($_POST['themsanpham'])) {
     $hinhanh = $_FILES['hinhanh']['name'];
     $gia = $_POST['giasanpham'];
     $danhmuc = $_POST['danhmuc'];
-    $path = '../image/';
-    $hinhanh_tmp = $_FILES['hinhanh']['tmp_name']; 
+    $path = 'image_uploads/';
+    $hinhanh_tmp = $_FILES['hinhanh']['tmp_name'];
 
-    $sql_monan	= mysqli_query($con, "SELECT tenmon FROM tbl_monan WHERE tenmon ='$tensanpham'");
-    $sql_monan1	= mysqli_query($con, "SELECT monan_image FROM tbl_monan WHERE monan_image ='$hinhanh'");   
-	$row_monan = mysqli_fetch_array($sql_monan);
+    $hinhanh = time() . "_" . $hinhanh;
+
+    $sql_monan    = mysqli_query($con, "SELECT name FROM tbl_product WHERE name ='$tensanpham'");
+    $sql_monan1    = mysqli_query($con, "SELECT image FROM tbl_product WHERE image ='$hinhanh'");
+    $row_monan = mysqli_fetch_array($sql_monan);
     $row_monan1 = mysqli_fetch_array($sql_monan1);
 
-        if($gia <= '0' || $gia == ''){
-            echo '<script language="javascript">';
-            echo 'alert("Giá bán không hợp lệ")';
-            echo '</script>';       
-        }else if($hinhanh== ''){
-            echo '<script language="javascript">';
-            echo 'alert("Không tìm thấy ảnh")';
-            echo '</script>';       
-        }else if($tensanpham == ''){
-            echo '<script language="javascript">';
-            echo 'alert("Tên không hợp lệ")';
-            echo '</script>';       
-        }else if($danhmuc == '0'){
-            echo '<script language="javascript">';
-            echo 'alert("Danh mục chưa được chọn")';
-            echo '</script>';
-        }else if(isset($row_monan1)){
-            echo '<script language="javascript">';
-            echo 'alert("Ảnh đã được sử dụng")';
-            echo '</script>';
-        }else if(isset($row_monan)){
-            echo '<script language="javascript">';
-            echo 'alert("Tên món đã tồn tại")';
-            echo '</script>';
-        }
-        else{
-            $sql_insert_product = mysqli_query($con, "INSERT INTO tbl_monan(tenmon,giamonan,monan_image,category_id) values ('$tensanpham','$gia','$hinhanh','$danhmuc')");
+    if ($gia <= '0' || $gia == '') {
+        echo '<script language="javascript">';
+        echo 'alert("Giá bán không hợp lệ")';
+        echo '</script>';
+    } else if ($hinhanh == '') {
+        echo '<script language="javascript">';
+        echo 'alert("Không tìm thấy ảnh")';
+        echo '</script>';
+    } else if ($tensanpham == '') {
+        echo '<script language="javascript">';
+        echo 'alert("Tên không hợp lệ")';
+        echo '</script>';
+    } else if ($danhmuc == '0') {
+        echo '<script language="javascript">';
+        echo 'alert("Danh mục chưa được chọn")';
+        echo '</script>';
+    } else if (isset($row_monan1)) {
+        echo '<script language="javascript">';
+        echo 'alert("Ảnh đã được sử dụng")';
+        echo '</script>';
+    } else if (isset($row_monan)) {
+        echo '<script language="javascript">';
+        echo 'alert("Tên món đã tồn tại")';
+        echo '</script>';
+    } else {
+        $sql_insert_product = mysqli_query($con, "INSERT INTO tbl_product(name,price,image,category_id) values ('$tensanpham','$gia','$hinhanh','$danhmuc')");
         move_uploaded_file($hinhanh_tmp, $path . $hinhanh);
-        }
-    
+    }
 } else if (isset($_POST['capnhatsanpham'])) {
     $id_update = $_POST['id_update'];
     $tensanpham = $_POST['tensanpham'];
@@ -55,10 +55,10 @@ if (isset($_POST['themsanpham'])) {
     $danhmuc = $_POST['danhmuc'];
     $path = '../image/';
     if ($hinhanh == '') {
-        $sql_update_image = "UPDATE tbl_monan SET tenmon='$tensanpham',giamonan='$gia',category_id='$danhmuc' WHERE monan_id='$id_update'";
+        $sql_update_image = "UPDATE tbl_product SET name='$tensanpham',price='$gia',category_id='$danhmuc' WHERE id='$id_update'";
     } else {
         move_uploaded_file($hinhanh_tmp, $path . $hinhanh);
-        $sql_update_image = "UPDATE tbl_monan SET tenmon='$tensanpham',giamonan='$gia',monan_image='$hinhanh',category_id='$danhmuc' WHERE monan_id='$id_update'";
+        $sql_update_image = "UPDATE tbl_product SET name='$tensanpham',price='$gia',image='$hinhanh',category_id='$danhmuc' WHERE id='$id_update'";
     }
     mysqli_query($con, $sql_update_image);
 }
@@ -66,7 +66,7 @@ if (isset($_POST['themsanpham'])) {
 <?php
 if (isset($_GET['xoa'])) {
     $id = $_GET['xoa'];
-    $sql_xoa = mysqli_query($con, "DELETE FROM tbl_monan WHERE monan_id='$id'");
+    $sql_xoa = mysqli_query($con, "DELETE FROM tbl_product WHERE id='$id'");
 }
 ?>
 <!DOCTYPE html>
@@ -81,7 +81,7 @@ if (isset($_GET['xoa'])) {
 </head>
 
 <body>
-<p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
+    <p>Xin chào : <?php echo $_SESSION['login'] ?> <a href="?loginn=logout">Log out</a></p>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -106,7 +106,7 @@ if (isset($_GET['xoa'])) {
             <?php
             if (isset($_GET['quanly']) == 'capnhat') {
                 $id_capnhat = $_GET['capnhat_id'];
-                $sql_capnhat = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id='$id_capnhat'");
+                $sql_capnhat = mysqli_query($con, "SELECT * FROM tbl_product WHERE id='$id_capnhat'");
                 $row_capnhat = mysqli_fetch_array($sql_capnhat);
                 $id_category_1 = $row_capnhat['category_id'];
             ?>
@@ -115,28 +115,28 @@ if (isset($_GET['xoa'])) {
 
                     <form action="" method="POST" enctype="multipart/form-data">
                         <label>Tên sản phẩm</label>
-                        <input type="text" class="form-control" name="tensanpham" value="<?php echo $row_capnhat['tenmon'] ?>"><br>
-                        <input type="hidden" class="form-control" name="id_update" value="<?php echo $row_capnhat['monan_id'] ?>">
+                        <input type="text" class="form-control" name="tensanpham" value="<?php echo $row_capnhat['name'] ?>"><br>
+                        <input type="hidden" class="form-control" name="id_update" value="<?php echo $row_capnhat['id'] ?>">
                         <label>Hình ảnh</label>
                         <input type="file" class="form-control" name="hinhanh"><br>
-                        <img src="../image/<?php echo $row_capnhat['monan_image'] ?>" height="80" width="80"><br>
+                        <img src="image_uploads/<?php echo $row_capnhat['image'] ?>" height="80" width="80"><br>
                         <label>Giá</label>
-                        <input type="text" class="form-control" name="giasanpham" value="<?php echo $row_capnhat['giamonan'] ?>"><br>
+                        <input type="text" class="form-control" name="giasanpham" value="<?php echo $row_capnhat['price'] ?>"><br>
                         <label>Danh mục</label>
                         <?php
-                        $sql_danhmuc = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id DESC");
+                        $sql_danhmuc = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY id DESC");
                         ?>
                         <select name="danhmuc" class="form-control">
                             <option value="0">-----Chọn danh mục-----</option>
                             <?php
                             while ($row_danhmuc = mysqli_fetch_array($sql_danhmuc)) {
-                                if ($id_category_1 == $row_danhmuc['category_id']) {
+                                if ($id_category_1 == $row_danhmuc['id']) {
                             ?>
-                                    <option selected value="<?php echo $row_danhmuc['category_id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
+                                    <option selected value="<?php echo $row_danhmuc['id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
                                 <?php
                                 } else {
                                 ?>
-                                    <option value="<?php echo $row_danhmuc['category_id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
+                                    <option value="<?php echo $row_danhmuc['id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
                             <?php
                                 }
                             }
@@ -160,14 +160,14 @@ if (isset($_GET['xoa'])) {
                         <input type="text" class="form-control" name="giasanpham" placeholder="Giá sản phẩm"><br>
                         <label>Danh mục</label>
                         <?php
-                        $sql_danhmuc = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id DESC");
+                        $sql_danhmuc = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY id DESC");
                         ?>
                         <select name="danhmuc" class="form-control">
                             <option value="0">-----Chọn danh mục-----</option>
                             <?php
                             while ($row_danhmuc = mysqli_fetch_array($sql_danhmuc)) {
                             ?>
-                                <option value="<?php echo $row_danhmuc['category_id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
+                                <option value="<?php echo $row_danhmuc['id'] ?>"><?php echo $row_danhmuc['category_name'] ?></option>
                             <?php
                             }
                             ?>
@@ -182,7 +182,7 @@ if (isset($_GET['xoa'])) {
             <div class="col-md-8">
                 <h4>Liệt kê sản phẩm</h4>
                 <?php
-                $sql_select_sp = mysqli_query($con, "SELECT * FROM tbl_monan,tbl_category WHERE tbl_monan.category_id=tbl_category.category_id ORDER BY tbl_monan.monan_id DESC");
+                $sql_select_sp = mysqli_query($con, "SELECT * FROM tbl_product, tbl_category WHERE tbl_product.category_id=tbl_category.id ORDER BY tbl_product.id DESC");
                 ?>
                 <table class="table table-bordered ">
                     <tr>
@@ -200,12 +200,12 @@ if (isset($_GET['xoa'])) {
                     ?>
                         <tr>
                             <td><?php echo $i ?></td>
-                            <td><?php echo $row_sp['tenmon'] ?></td>
-                            <td><img src="../image/<?php echo $row_sp['monan_image'] ?>" height="100" width="80"></td>
+                            <td><?php echo $row_sp['name'] ?></td>
+                            <td><img src="image_uploads/<?php echo $row_sp['image'] ?>" height="100" width="80"></td>
                             <td><?php echo $row_sp['category_name'] ?></td>
-                            <td><?php echo number_format($row_sp['giamonan']) . '$' ?></td>
+                            <td><?php echo number_format($row_sp['price'], 0, ',', '.') . ' VNĐ' ?></td>
 
-                            <td><a href="?xoa=<?php echo $row_sp['monan_id'] ?>">Xóa</a> || <a href="xulysanpham.php?quanly=capnhat&capnhat_id=<?php echo $row_sp['monan_id'] ?>">Sửa</a></td>
+                            <td><a href="?xoa=<?php echo $row_sp['id'] ?>">Xóa</a> || <a href="xulysanpham.php?quanly=capnhat&capnhat_id=<?php echo $row_sp['id'] ?>">Sửa</a></td>
                         </tr>
                     <?php
                     }
