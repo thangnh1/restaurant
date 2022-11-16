@@ -1,3 +1,6 @@
+<?php 
+include('../db/connect.php');
+?>
 <section id="menu" class="menu section-pading">
 
         <div class="container">
@@ -63,7 +66,7 @@
                             <div class="list-price">
                                 <p><?php echo $row_product['price'] ?>$</p>
                             </div>
-                            <a href="addproduct.php?category_id=<?php echo $row_product['id'] ?>"><i class="fas fa-plus"></i></a>
+                            <a href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['id'] ?>"><i class="fas fa-plus"></i></a>
                         </div>
                     <?php
                     }

@@ -2,6 +2,7 @@
 session_start();
 include "../db/connect.php";
 include "./loginwgg.php";
+
 if (isset($_POST['dangnhap_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
@@ -24,7 +25,8 @@ if (isset($_POST['dangnhap_home'])) {
             echo '<script language="javascript">';
             echo 'alert("Something wrong with your user name or password!")';
             echo '</script>';
-            echo '<meta http-equiv="refresh" content="0;url=login_.php">';
+            header('Location:login.php').sleep(3);
+            //echo '<meta http-equiv="refresh" content="3;url=login.php">';
         }
     }
 }

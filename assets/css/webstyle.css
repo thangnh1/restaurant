@@ -9,11 +9,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Signika&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 html {
     scroll-behavior: smooth;
 }
 :root {
-    --main-color :#ffff;
+    --main-color :peachpuff;
     --second-color : black;
 }
 body {
@@ -241,7 +244,7 @@ a {
 /*------------------------------------------------Content-----------------------------------------------*/
 .about{
     background-color: var(--main-color);
-    padding-top: 150px;
+    padding-top: 50px;
     padding-bottom: 180px;
 }
 .title {   
@@ -258,15 +261,20 @@ a {
     font-weight: 4px;
 }
 .about .about-item h2 {
-    font-size: 20px;
-    color: var(--second-color);
+    font-size: 25px;
+    color: #000000;
     font-family: 'Signika', sans-serif;
+    font-weight: 1;
 }
 .about .about-item p{
-    font-size: 15px;
+    font-size: 17px;
     color:#000000;
     margin: 15px 0 30px;
     text-align: justify;
+    font-family: 'Poppins', sans-serif;
+    font-style: bold;
+    line-height: 1.5rem;
+
 }
  .about .about-item img {
     width: 100%;
@@ -515,7 +523,7 @@ hr {
     margin-right: 5px;
   }
   .cart i{
-    color:black;
+    color:white;
     padding-top: 20px;
     font-size: 30px;
     display: block;
@@ -537,9 +545,10 @@ hr {
 /*-------------------------------------------MENU------------------------------------------*/
 
 .menu {
-    background-color: #dcdde1;
+    background-color: var(--main-color);
     padding-top: 50px;
     padding-bottom: 100px;
+
 }
 .menu-title {
     padding-top: 30px;
@@ -556,7 +565,7 @@ hr {
     cursor: pointer;
     align-items: center;
     font-family: 'Archivo Black', sans-serif;
-    background-color: powderblue;
+    background-color: white;
     padding: 5px;
     height: 50px;
     width: 120px;
@@ -578,7 +587,7 @@ hr {
     position: relative;
     padding-bottom: 30px;
     padding-top: 50px;
-    background-color: powderblue;    
+    background-color: white;    
 }
 .list-items i{
     color: blue;
@@ -667,7 +676,7 @@ hr {
     margin: auto;
     justify-content:space-between;
     padding-bottom: 100px;
-   
+    
 }
 .some-foods-item {
     width: 30%;
@@ -717,7 +726,7 @@ hr {
 /*-------------------------------ROOM-------------------------------------*/
 .room {
     padding: 50px 0 150px 0 ;
-    background-color: #dcdde1;
+    background-color: var(--main-color);
 }
 .room-items {
     padding: 15px;

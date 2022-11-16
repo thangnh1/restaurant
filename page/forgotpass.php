@@ -100,8 +100,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 			<button type="submit" name="email_con" onclick="showSpinner()">Confirm email</button>
 		</div>
 		<div class="footer">
-			<h5>New here? <a href="#">Sign Up.</a></h5>
-			<h5>Already have an account? <a href="#">Sign In.</a></h5>
+			<h5>New here? <a href="register.php">Sign Up.</a></h5>
+			<h5>Already have an account? <a href="login.php">Sign In.</a></h5>
 			<p class="information-text"><span class="symbols" title="Lots of love from me to YOU!">&hearts; </span><a href="https://www.facebook.com/adedokunyinka.enoch" target="_blank" title="Connect with me on Facebook">Yinka Enoch Adedokun</a></p>
 		</div>
 	</div>

@@ -59,7 +59,7 @@ if (!isset($_SESSION['dangnhap_home'])) {
     echo '<script language="javascript">';
     echo 'alert("Đăng nhập để có thể thêm món ăn vào giỏ hàng!")';
     echo '</script>';
-    echo '<meta http-equiv="refresh" content="0;url=index.php">';
+    echo '<meta http-equiv="refresh" content="0;url=login.php">';
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'add') {
         $id = $_GET['sanpham_id'];

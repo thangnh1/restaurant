@@ -1,5 +1,6 @@
 <?php
 include('../db/connect.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,166 +27,97 @@ include('../db/connect.php');
 </head>
 
 <body>
-<section class="h-100 h-custom" style="background-color: #d2c9ff;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12">
-        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-          <div class="card-body p-0">
-            <div class="row g-0">
-              <div class="col-lg-8">
-                <div class="p-5">
-                  <div class="d-flex justify-content-between align-items-center mb-5">
-                    <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                    <h6 class="mb-0 text-muted">3 items</h6>
-                  </div>
-                  <hr class="my-4">
+  <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-8">
+                  <div class="p-5">
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                      <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                    </div>
+                    <hr class="my-4">
 
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Kienne</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
+                    <?php
+                    $tongtien = 0;
+                    if (isset($_SESSION['donhang'])) {
+                      foreach ($_SESSION['donhang'] as $donhang_sp) {
+                        $thanhtien = $donhang_sp['soluong'] * $donhang_sp['sanpham_gia'];
+                        $tongtien += $thanhtien;
+                    ?>
 
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm spinner-1" />
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img src="../admin/image_uploads/<?php echo $donhang_sp['sanpham_image'] ?>" class="img-fluid rounded-3" alt="">
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-black mb-0"><?php echo $donhang_sp['sanpham_name'] ?></h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <a href="addproduct.php?tang=<?php echo $donhang_sp['id'] ?>"><i class="fas fa-plus"></i></a>
+                            <h6 style="padding: 0 10px;"><?php echo $donhang_sp['soluong'] ?></h6>
+                            <a href="addproduct.php?giam=<?php echo $donhang_sp['id'] ?>"><i class="fas fa-minus"></i></a>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0"><?php echo number_format($thanhtien, 0, ',', '.') . ' VNĐ' ?></h6>
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a href="addproduct.php?xoa=<?php echo $donhang_sp['id'] ?>" class="text-muted"><i class="fas fa-times"></i></a>
+                          </div>
+                        </div>
+                      <?php } ?>
+                    <?php
 
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
+                    } else { ?>
+                      <h6>Hiện tại chưa có đơn hàng được tạo!</h6>
+                    <?php } ?>
 
-                  <hr class="my-4">
+                    <hr class="my-4">
 
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    <div class="pt-5 d-flex justify-content-between align-items-center">
+                      <h6 class="mb-0"><a style="cursor: pointer" href="home.php" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                      <h6 style="float: right"><a href="addproduct.php?xoatatca=1">Xoá tất cả</a></h6>
                     </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Shirt</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm spinner-1" />
-
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Shirt</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm spinner-1" />
-
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="pt-5">
-                    <h6 class="mb-0"><a href="home.php" class="text-body"><i
-                          class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-4 bg-grey">
-                <div class="p-5">
-                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                  <hr class="my-4">
 
-                  <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase">items 3</h5>
-                    <h5>€ 132.00</h5>
+                <div class="col-lg-4 bg-grey">
+                  <div class="p-5">
+                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="text-uppercase">Total price</h5>
+                      <h5><?php echo number_format($tongtien, 0, ',', '.') . ' VNĐ' ?></h5>
+                    </div>
+
+                    <div class="mb-4 pb-2">
+                      <p>Note</p>
+                      <input type="text">
+                    </div>
+
+                    <div class="mb-4 pb-2">
+                      <p>Address Shipping</p>
+                      <input type="text">
+                    </div>
+                    <div class="mb-4 pb-2">
+                      <p>Choose payment method</p>
+                      <form action="payment.php" method="post" name="payment">
+                        <input class="payment-method" type="radio" name="payment-method" value="tt" checked><label for="tt">Thanh toán khi nhận hàng</label><br>
+                        <input class="payment-method" type="radio" name="payment-method" value="vnpay"><label for="vnpay">VNPay</label><br>
+                        <input class="payment-method" type="radio" name="payment-method" value="momo"><label for="momo">Momo</label><br>
+                        <?php if (isset($_SESSION['donhang'])) { ?>
+                          <a href="" style="text-decoration: none; color:white;"><input style="margin-top: 20px;" type="submit" id="submit" value="Go to Payment" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark"></label></input></a>
+                        <?php } else { ?>
+                          <a href="payment.php" style="text-decoration: none; color:white;"><button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" disabled>Go to Payment</button></a>
+                        <?php } ?>
+                      </form>
+                    </div>
+
                   </div>
-
-                  <h5 class="text-uppercase mb-3">Shipping</h5>
-
-                  <div class="mb-4 pb-2">
-                    <select class="select">
-                      <option value="1">Standard-Delivery- €5.00</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                      <option value="4">Four</option>
-                    </select>
-                  </div>
-
-
-                  <hr class="my-4">
-
-                  <div class="d-flex justify-content-between mb-5">
-                    <h5 class="text-uppercase">Total price</h5>
-                    <h5>€ 137.00</h5>
-                  </div>
-                  <div class="btn-payment">
-                    <button type="button" class="login100-form-btn"
-                      data-mdb-ripple-color="dark">PAY AT RESTAURANT</button>
-                  </div>
-                   <a style="text-decoration:none;" href="https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=1806000&vnp_Command=pay&vnp_CreateDate=20210801153333&vnp_CurrCode=VND&vnp_IpAddr=127.0.0.1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+%3A5&vnp_OrderType=other&vnp_ReturnUrl=https%3A%2F%2Fdomainmerchant.vn%2FReturnUrl&vnp_TmnCode=DEMOV210&vnp_TxnRef=5&vnp_Version=2.1.0&vnp_SecureHash=3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42">
-                    <button type="button" class="login100-form-btn"
-                     >PAY WITH VNPAY</button>
-                   </a> 
-                  
                 </div>
               </div>
             </div>
@@ -193,6 +125,5 @@ include('../db/connect.php');
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>
