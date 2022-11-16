@@ -14,7 +14,7 @@ if (isset($_GET['tang'])) {
             $_SESSION['donhang'] = $sanpham;
         }
     }
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //giam so luong san pham
@@ -33,7 +33,7 @@ if (isset($_GET['giam'])) {
             $_SESSION['donhang'] = $sanpham;
         }
     }
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //xoa san pham
@@ -44,14 +44,14 @@ if (isset($_SESSION['donhang']) && isset($_GET['xoa'])) {
             $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'], 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
         }
         $_SESSION['donhang'] = $sanpham;
-        header('Location:order.php');
+        header('Location:cart.php');
     }
 }
 
 //xoa tat ca
 if (isset($_GET['xoatatca']) && $_GET['xoatatca'] == 1) {
     unset($_SESSION['donhang']);
-    header('Location:order.php');
+    header('Location:cart.php');
 }
 
 //them vao gio hang
@@ -63,12 +63,15 @@ if (!isset($_SESSION['dangnhap_home'])) {
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'add') {
         $id = $_GET['sanpham_id'];
-        $soluong = 1;
-        $sql = "SELECT * FROM tbl_sanpham WHERE sanpham_id ='" . $id . "' LIMIT 1";
+        if (isset($_GET['sl']))
+            $soluong = $_GET['sl'];
+        else
+            $soluong = 1;
+        $sql = "SELECT * FROM tbl_product WHERE id ='" . $id . "' LIMIT 1";
         $query = mysqli_query($con, $sql);
         $row = mysqli_fetch_array($query);
         if ($row) {
-            $new_product = array(array('sanpham_name' => $row['sanpham_name'], 'id' => $id, 'sanpham_gia' => $row['sanpham_gia'], 'soluong' => $soluong, 'sanpham_image' => $row['sanpham_image'], 'sanpham_id' => $row['sanpham_id']));
+            $new_product = array(array('sanpham_name' => $row['name'], 'id' => $id, 'sanpham_gia' => $row['price'], 'soluong' => $soluong, 'sanpham_image' => $row['image'], 'sanpham_id' => $row['id']));
             if (isset($_SESSION['donhang'])) {
                 $found = false;
                 foreach ($_SESSION['donhang'] as $donhang_sp) {
@@ -92,5 +95,6 @@ if (!isset($_SESSION['dangnhap_home'])) {
     echo '<script language="javascript">';
     echo 'alert("Món đã được thêm vào giỏ hàng!")';
     echo '</script>';
-    echo '<meta http-equiv="refresh" content="0;url=login.php#menu">';
+    echo '<meta http-equiv="refresh" content="0;url=home.php#menu">';
 }
+?>

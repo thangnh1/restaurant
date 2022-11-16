@@ -39,5 +39,4 @@
 
 	};
 	carousel();
-
 })(jQuery);

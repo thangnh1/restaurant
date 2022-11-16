@@ -3,11 +3,6 @@ session_start();
 include('../db/connect.php')
 ?>
 <?php
-if (isset($_SESSION['dangnhap_home'])) {
-    echo '<script language="javascript">';
-    echo '</script>';
-    session_destroy();
-}
 if (isset($_POST['dangky_home'])) {
     $kh_user = $_POST['kh_user'];
     $kh_password = md5($_POST['kh_password']);
@@ -15,12 +10,12 @@ if (isset($_POST['dangky_home'])) {
     $kh_sdt = $_POST['kh_sdt'];
     $kh_email = $_POST['kh_email'];
 
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
+    $check = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE email='$kh_email' or username='$kh_user'");
     $count = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
-    $count1 = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
-    $count2 = mysqli_num_rows($check);
+    $check1 = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE email='$kh_email'");
+    $count1 = mysqli_num_rows($check1);
+    $check2 = mysqli_query($con, "SELECT*FROM tbl_user_account WHERE username='$kh_user'");
+    $count2 = mysqli_num_rows($check2);
     if ($count > 0) {
         if ($count1 > 0 && $count2 > 0) {
             echo '<script language="javascript">';
@@ -39,15 +34,17 @@ if (isset($_POST['dangky_home'])) {
             echo '</script>';
         }
     } else {
-        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
+        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_user_account(username,password,fullname,phone_number,email)
         values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
-        $check = mysqli_query($con, $sql_insert_dangky);
-        $check = $sql_insert_dangky;
+        //$check = mysqli_query($con, $sql_insert_dangky);
+        //$check = $sql_insert_dangky;
         echo '<script language="javascript">';
         echo 'alert("Bạn đã đăng ký thành công!")';
         echo '</script>';
+        echo '<meta http-equiv="refresh" content="0;url=index.php">';
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,16 +61,17 @@ if (isset($_POST['dangky_home'])) {
         <a href="index.php">
         <span class="close" title="Close Modal">&times;</span>
         </a>
-            <form class="register-form" action="./index.php" method="post">
-                <h1>Welcome To Kien Restaurant</h1>
+            <form class="register-form" method="post">
+                <h1>Welcome To Bees Restaurant</h1>
                 <p>Please fill in this form to create an account.</p>
                 <hr>
                 <div class="signup-input">
                     <input type="text" placeholder="Full name" name="kh_fullname" required>
                     <input type="text" placeholder="Enter your mail" name="kh_email" required>
+                    <input type="text" placeholder="Enter your phone number" name="kh_sdt" required>
                     <input type="text" placeholder="Enter user name" name="kh_user" required>
                     <input type="password" placeholder="Enter password" name="kh_password" required>
-                    <input type="password" placeholder="Repeat password" name="kh_repeatps" required>
+                    <input type="password" placeholder="Confirm your password" name="kh_repeatps" required>
                 </div>
     
                 <label>

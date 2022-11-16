@@ -2,62 +2,9 @@
 session_start();
 include('../db/connect.php');
 include('./loginwgg.php');
-
+include('./loginwfb.php');
 
 ?>
-<?php
-/*if(isset($_SESSION['passupdate'])){
-    echo '<script language="javascript">';
-    echo 'alert("Password updated")';
-    echo '</script>';
-}*/
-if (isset($_SESSION['dangnhap_home'])) {
-    echo '<script language="javascript">';
-    echo '</script>';
-    session_destroy();
-}
-if (isset($_POST['dangky_home'])) {
-    $kh_user = $_POST['kh_user'];
-    $kh_password = md5($_POST['kh_password']);
-    $kh_fullname = $_POST['kh_fullname'];
-    $kh_sdt = $_POST['kh_sdt'];
-    $kh_email = $_POST['kh_email'];
-
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email' or kh_user='$kh_user'");
-    $count = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_email='$kh_email'");
-    $count1 = mysqli_num_rows($check);
-    $check = mysqli_query($con, "SELECT*FROM tbl_acckh WHERE kh_user='$kh_user'");
-    $count2 = mysqli_num_rows($check);
-    if ($count > 0) {
-        if ($count1 > 0 && $count2 > 0) {
-            echo '<script language="javascript">';
-            echo 'alert("Email and ID has already been used!")';
-            echo '</script>';
-        }
-
-        if ($count1 > 0 && $count2  <= 0) {
-            echo '<script language="javascript">';
-            echo 'alert("Email has already been used!")';
-            echo '</script>';
-        }
-        if ($count2 > 0 && $count1  <= 0) {
-            echo '<script language="javascript">';
-            echo 'alert("ID has already been used!")';
-            echo '</script>';
-        }
-    } else {
-        $sql_insert_dangky = mysqli_query($con, "INSERT INTO tbl_acckh(kh_user,kh_password,kh_fullname,kh_sdt,kh_email)
-        values('$kh_user','$kh_password','$kh_fullname','$kh_sdt','$kh_email')");
-        //$check = mysqli_query($con, $sql_insert_dangky);
-        //$check = $sql_insert_dangky;
-        echo '<script language="javascript">';
-        echo 'alert("Bạn đã đăng ký thành công!")';
-        echo '</script>';
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +36,7 @@ if (isset($_POST['dangky_home'])) {
     <section class="top">
         <div class="container">
             <div class="row justify-content">
-                <div class="logo"><img src="../image/logo.png" alt=""></div>
+                <div class="logo"><img src="../image/logo4.png" alt=""></div>
                 <div class="signup">
                     <div class="signup-button">
                         <a href="register.php"><button>SIGN UP</button></a>
@@ -97,9 +44,9 @@ if (isset($_POST['dangky_home'])) {
                 </div>
                 <div class="login">
                     <div class="login-button">
-                       <a href="signin.php">
-                       <button>LOG IN</button>
-                       </a> 
+                        <a href="login.php">
+                            <button>LOG IN</button>
+                        </a>
                     </div>
                 </div>
                 <div class="menu-bar">
@@ -120,6 +67,20 @@ if (isset($_POST['dangky_home'])) {
     </section>
     <section id="" class="background">
         <div class="home-slider owl-carousel js-fullheight">
+            <div class="slider-item js-fullheight" style="background-image:url(../image/restaurant.webp);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="text w-100 text-center">
+                                <h2>European Restaurant</h2>
+                                <h1 class="mb-3">BEAUTIFUL</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="slider-item js-fullheight" style="background-image:url(../image/background5.jpg);">
                 <div class="overlay"></div>
                 <div class="container">
@@ -127,21 +88,7 @@ if (isset($_POST['dangky_home'])) {
                         <div class="col-md-12 ftco-animate">
                             <div class="text w-100 text-center">
                                 <h2>European Restaurant</h2>
-                                <h1 class="mb-3">AMERICA</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slider-item js-fullheight" style="background-image:url(../image/spagetti.jpg);">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
-                        <div class="col-md-12 ftco-animate">
-                            <div class="text w-100 text-center">
-                                <h2>European Restaurant</h2>
-                                <h1 class="mb-3">ITALIA</h1>
+                                <h1 class="mb-3">DELICIOUS</h1>
                             </div>
                         </div>
                     </div>
@@ -155,7 +102,7 @@ if (isset($_POST['dangky_home'])) {
                         <div class="col-md-12 ftco-animate">
                             <div class="text w-100 text-center">
                                 <h2>European Restaurant</h2>
-                                <h1 class="mb-3">Turkey</h1>
+                                <h1 class="mb-3">FRESH</h1>
                             </div>
                         </div>
                     </div>
@@ -165,227 +112,22 @@ if (isset($_POST['dangky_home'])) {
     </section>
 
     <!---------------------------------------------ABOUT-US------------------------------------->
-    <section id="aboutus" class="about section-pading ">
-        <div class="container">
-            <div class="row">
-                <div class="title">
-                    <h2>About Us</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="about-item" data-aos="fade-up-right" data-aos-easing="linear" data-aos-duration="1500">
-                    <h2>WELCOME TO BEES RESTAURANT</h2>
-                    <p>
-                        Our restaurant was established and grown in 2008 after those arduous days. The finest dishes of
-                        Europe can be found right on the menu of our restaurant.
-                        If the cooking method creates the soul of a dish, the ingredients make up its body. BEES
-                        Restaurant has chosen a rather thorny path in choosing ingredients for its dishes, and has
-                        written its own story.
-                        With a menu of European dishes, the restaurant has worked hard to find the source of fresh
-                        European ingredients right after the harvest.
-                        The restaurant has a rich menu to satisfy the dining needs of customers.
-                    </p>
-                </div>
-                <div class="about-item" data-aos="fade-up-left" data-aos-easing="linear" data-aos-duration="1500">
-                    <div class="about-item-img">
-                        <span>+10 years of experience</span>
-                        <img src="../image/content3.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   <?php include('aboutus.php');?>
     <!--------------------------------------SIGNUP--------------------------------------->
 
 
     <!--------------------------------------------------------MENU---------------------------------------------------->
 
-    <section id="menu" class="menu section-pading">
-
-        <div class="container">
-            <div class="row">
-                <div class="title">
-                    <h2>MENU LIST</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="detail">
-                    <div id="id03" class="detail-modal1">
-                        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <div class="detail-items">
-                            <div class="detail-img">
-                                <img src="../image/background.jpg" alt="">
-                            </div>
-                            <div class="detail-info">
-                                <h2>PASTA</h2>
-                                <h3>PRICE: 50$</h3>
-                                <label for="">QUANTITY: <input type="number"></label>
-                                <h3>DETAIL : <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex incidunt magnam vero similique modi quaerat nihil earum cum sapiente, ab tempora deserunt nisi non perferendis odio totam, cupiditate possimus.</p>
-                                </h3>
-                                <a href="#" class="btn-cart m-b-20">
-                                    ADD TO CART <i class="fas fa-cart-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-title">
-                    <?php
-                    $sql_category = mysqli_query($con, "SELECT * FROM tbl_category ORDER BY category_id  ASC");
-                    ?>
-
-                    <?php
-                    while ($row_category = mysqli_fetch_array($sql_category)) {
-                    ?>
-                        <button class="menu-button" data-title="<?php echo $row_category['category_id'] ?>"><?php echo $row_category['category_name'] ?></button>
-                    <?php
-                    }
-                    ?>
-                </div>
-            </div>
-            <?php
-            $sql_category = mysqli_query($con, "SELECT * FROM tbl_category");
-            ?>
-            <?php
-            while ($row_category = mysqli_fetch_array($sql_category)) {
-            ?>
-                <div class="menu-content " id="<?php echo $row_category['category_id'] ?>">
-                    <?php
-                    $id = $row_category['category_id'];
-                    $sql_product = mysqli_query($con, "SELECT * FROM tbl_sanpham WHERE category_id = $id ");
-                    ?>
-                    <?php
-                    while ($row_product = mysqli_fetch_array($sql_product)) {
-                    ?>
-                        <div class="list-items">
-                            <div class="list-item">
-                                <img src="../image/<?php echo $row_product['sanpham_image'] ?>" alt="">
-                                <button class="menu-item-name" onclick="document.getElementById('id03').style.display='block'" style="width:100%;"><?php echo $row_product['sanpham_name'] ?></button>
-                            </div>
-                            <div class="list-price">
-                                <p><?php echo $row_product['sanpham_gia'] ?>$</p>
-                            </div>
-                            <a href="addproduct.php?sanpham_id=<?php echo $row_product['sanpham_id'] ?>"><i class="fas fa-plus"></i></a>
-                        </div>
-                    <?php
-                    }
-                    ?>
-
-                </div>
-
-
-            <?php
-            }
-            ?>
-        </div>
-
-    </section>
-
-
+    <?php include('menuproduct.php');?>
     <!---------------------------------------------Some foods------------------------------------------->
-    <section id="gallery" class="some-foods">
-        <div class="title">
-            <h2>our gallery</h2>
-        </div>
-        <div class="some-foods">
-            <div class="container">
-                <div class="row">
-                    <div class="some-foods-item">
-                        <h2>Pan-fried Salmon</h2>
-                        <img src="../image/br1.jpg" alt="">
-                    </div>
-                    <div class="some-foods-item">
-                        <h2>Vegetarian Salad </h2>
-                        <img src="../image/br2.jpg" alt="">
-                    </div>
-                    <div class="some-foods-item">
-                        <h2>Chicken Breast Salad</h2>
-                        <img src="../image/br3.jpg" alt="">
-                    </div>
-                    <div class="some-foods-item">
-                        <h2>Goose Breast</h2>
-                        <img src="../image/br4.jpg" alt="">
-                    </div>
-                    <div class="some-foods-item">
-                        <h2>Dessert</h2>
-                        <img src="../image/br5.jpg" alt="">
-                    </div>
-                    <div class="some-foods-item">
-                        <h2>Vegetarian Sandwich</h2>
-                        <img src="../image/sandwich.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!----------------------------------ROOM------------------------------------>
-    <section id="room" class="room">
-        <div class="container">
-            <div class="row">
-                <div class="title">
-                    <h2>Party Room</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="room-items">
-                    <img src="../image/room1.jpg" alt="">
-                    <div class="room-items-text">
-                        <h2>COUPLE</h2>
-                        <p>Capacity 2-3 peoples,suitable for Couple</p>
-                    </div>
-                </div>
-                <div class="room-items">
-                    <img src="../image/family.jpg" alt="">
-                    <div class="room-items-text">
-                        <h2>FAMILY</h2>
-                        <p>Capacity 8-10 peoples,suitable for Family</p>
-                    </div>
-                </div>
-                <div class="room-items">
-                    <img src="../image/vip2.jpg" alt="">
-                    <div class="room-items-text">
-                        <h2>VIP</h2>
-                        <p>Capacity 10-15 peoples.Completely private room.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <?php include('gallery.php');?>
 
-    </section>
+    <!----------------------------------ROOM------------------------------------>
+    <?php include('room.php');?>
+
     <!-----------------------------------------FOOTER---------------------------------------->
 
-    <section id="contact" class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-item">
-                    <h2>Address</h2>
-                    <p>57 Nguyen Cuu Van, P17 <br> Q.Binh Thanh, TP HCM</p>
-                </div>
-                <div class="footer-item">
-                    <h2>Opening Hours</h2>
-                    <p>Monday - Saturday <br> 10:00 AM - 21:00 PM </p>
-                    <p>Sunday <br> 10:00 AM - 22:00 PM </p>
-                </div>
-                <div class="footer-item">
-                    <h2>Contact Us</h2>
-                    <p><i class="fas fa-phone"></i> 0388314851 <br> <i class="far fa-envelope"></i>
-                        nguyenkiencke@gmail.com</p>
-                    <div class="footer-social">
-                        <a href="https://www.facebook.com/trungkiennnnn/">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="https://www.instagram.com/kiennecacban/">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="footer-copyright">
-                Copyright © 2021. All rights reserved.
-            </div>
-        </div>
-    </section>
+    <?php include 'footer.php'; ?>
 
     <script src="../assets/js/webscript.js"></script>
     <script>

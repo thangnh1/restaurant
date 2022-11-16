@@ -9,12 +9,12 @@ if (isset($_POST['login'])) {
     if ($user == '' || $password == '') {
         echo '<p>Please enter full</p>';
     } else {
-        $sql_select_admin = mysqli_query($con, "SELECT*FROM tbl_admin WHERE user='$user'AND password='$password' LIMIT 1");
+        $sql_select_admin = mysqli_query($con, "SELECT*FROM tbl_admin WHERE username='$user'AND password='$password' LIMIT 1");
         $count = mysqli_num_rows($sql_select_admin);
         $row_login = mysqli_fetch_array($sql_select_admin);
         if ($count > 0) {
-            $_SESSION['login'] = $row_login['admin_name'];
-            $_SESSION['admin_id'] = $row_login['admin_id'];
+            $_SESSION['login'] = $row_login['name'];
+            $_SESSION['admin_id'] = $row_login['id'];
             header('Location: dashboard.php');
         } else {
             echo '<p>Something wrong with your password or username</p>';
@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>AD Account</title>
 </head>
 
