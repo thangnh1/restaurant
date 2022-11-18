@@ -197,7 +197,7 @@ if ($logout == 'logout') {
                             <div class="list-price">
                                 <p><?php echo number_format($row_product['price'], 0, ',', '.') . ' VNĐ' ?></p>
                             </div>
-                            <a style="cursor: pointer" href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['id'] ?>"><i class="fas fa-cart-plus"></i></a>
+                            <a style="cursor: pointer" name="themgiohang" href="addproduct.php?action=add&sanpham_id=<?php echo $row_product['id'] ?>"><i class="fas fa-cart-plus"></i></a>
                         </div>
                     <?php
                     }

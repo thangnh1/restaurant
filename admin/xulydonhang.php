@@ -245,7 +245,7 @@ if (isset($_GET['dangxuly'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ ĐƠN HÀNG ĐÃ XỬ LÍ</h4>
 				<?php
-				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '1' and date = '$today'");
+				$sql_select = mysqli_query($con, "SELECT * FROM tbl_order WHERE order_status = '1' and date_ = '$today'");
 				?>
 				<table class="table table-bordered ">
 					<tr>
@@ -262,11 +262,11 @@ if (isset($_GET['dangxuly'])) {
 					$i = 0;
 					while ($row_donhang = mysqli_fetch_array($sql_select)) {
 						$madon = $row_donhang['order_code'];
-						// $sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_chitietdondatmon WHERE madon='$madon'");
+						$sql_chitietdon = mysqli_query($con, "SELECT * FROM tbl_order_detail WHERE madon='$madon'");
 						$tong = 0;
 						while ($row_chitiet =  mysqli_fetch_array($sql_chitietdon)) {
-							// $monan_id = $row_chitiet['monan_id'];
-							// $sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
+							$monan_id = $row_chitiet['monan_id'];
+							$sql_monan = mysqli_query($con, "SELECT * FROM tbl_monan WHERE monan_id ='$monan_id'");
 							if ($row_monan =  mysqli_fetch_array($sql_monan)) {
 								$giamon = $row_monan['price'];
 								$tong +=  $giamon * $row_chitiet['quantity'];

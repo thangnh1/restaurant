@@ -182,7 +182,7 @@ if (isset($_GET['xoa'])) {
             <div class="col-md-8">
                 <h4>Liệt kê sản phẩm</h4>
                 <?php
-                $sql_select_sp = mysqli_query($con, "SELECT * FROM tbl_product, tbl_category WHERE tbl_product.category_id=tbl_category.id ORDER BY tbl_product.id DESC");
+                $sql_select_sp = mysqli_query($con, "SELECT tbl_product.id, name, image, price, category_id, category_name FROM tbl_product, tbl_category WHERE tbl_product.category_id=tbl_category.id ORDER BY tbl_product.id DESC");
                 ?>
                 <table class="table table-bordered ">
                     <tr>
@@ -200,7 +200,7 @@ if (isset($_GET['xoa'])) {
                     ?>
                         <tr>
                             <td><?php echo $i ?></td>
-                            <td><?php echo $row_sp['name'] ?></td>
+                            <td><?php print_r($row_sp)  ?></td>
                             <td><img src="image_uploads/<?php echo $row_sp['image'] ?>" height="100" width="80"></td>
                             <td><?php echo $row_sp['category_name'] ?></td>
                             <td><?php echo number_format($row_sp['price'], 0, ',', '.') . ' VNĐ' ?></td>

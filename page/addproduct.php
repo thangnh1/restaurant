@@ -63,8 +63,8 @@ if (!isset($_SESSION['dangnhap_home'])) {
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'add') {
         $id = $_GET['sanpham_id'];
-        if (isset($_GET['sl']))
-            $soluong = $_GET['sl'];
+        if (isset($_GET['soluong']))
+            $soluong = $_GET['soluong'];
         else
             $soluong = 1;
         $sql = "SELECT * FROM tbl_product WHERE id ='" . $id . "' LIMIT 1";
@@ -76,16 +76,16 @@ if (!isset($_SESSION['dangnhap_home'])) {
                 $found = false;
                 foreach ($_SESSION['donhang'] as $donhang_sp) {
                     if ($donhang_sp['id'] == $id) {
-                        $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'], 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
+                        $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'] + 1, 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
                         $found = true;
                     } else {
-                        $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'] + 1, 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
+                        $sanpham[] = array('sanpham_name' => $donhang_sp['sanpham_name'], 'id' => $donhang_sp['id'], 'soluong' => $donhang_sp['soluong'], 'sanpham_gia' => $donhang_sp['sanpham_gia'], 'sanpham_image' => $donhang_sp['sanpham_image'], 'sanpham_id' => $donhang_sp['sanpham_id']);
                     }
                 }
                 if ($found == false) {
                     $_SESSION['donhang'] = array_merge($sanpham, $new_product);
                 } else {
-                    $_SESSION['cart'] = $sanpham;
+                    $_SESSION['donhang'] = $sanpham;
                 }
             } else {
                 $_SESSION['donhang'] = $new_product;

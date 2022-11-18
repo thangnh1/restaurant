@@ -12,8 +12,9 @@ $today_ = date("d/m/Y");
 $rdo = $_POST['payment-method'];
 
 if ($rdo == "tt") {
-    $insert_order = "INSERT INTO tbl_order(user_id, order_code, date, date_, order_status, payment_status) VALUE('" . $khachhang_id . "','" . $code_order . "', '" . $today . "', '" . $today_ . "', 1, 0)";
+    $insert_order = "INSERT INTO tbl_order(user_id, order_code, date, date_, order_status, payment_status) VALUE('" . $khachhang_id . "','" . $code_order . "', '" . $today . "', '" . $today_ . "', 0, 0)";
     $cart_query = mysqli_query($con, $insert_order);
+    echo $_SESSION['donhang'];
     if ($insert_order) {
         foreach ($_SESSION['donhang'] as $key => $value) {
             $id_sanpham = $value['id'];
