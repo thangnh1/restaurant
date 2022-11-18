@@ -24,7 +24,7 @@ if (isset($_GET['xoa'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <title>Danh Mục</title>
 </head>
 
@@ -75,7 +75,7 @@ if (isset($_GET['xoa'])) {
                     <label>Tên danh mục</label>
                     <form action="" method="POST">
                         <input type="text" class="form-control" name="danhmuc" placeholder="Tên danh mục"><br>
-                        <input type="submit" name="themdanhmuc" value="Thêm danh mục" class="btn btn-default">
+                        <input type="submit" name="themdanhmuc" value="Thêm danh mục" class="btn-default">
                     </form>
                 </div>
             <?php

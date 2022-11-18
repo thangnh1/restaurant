@@ -34,7 +34,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Đơn hàng</title>
-	<link href="../assets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </head>
 
 <body>

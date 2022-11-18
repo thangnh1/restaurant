@@ -28,7 +28,7 @@ $update = mysqli_query($con, "UPDATE tbl_order SET payment_status = '1' WHERE tb
     <!-- Custom styles for this template -->
     <link href="/vnpay_php/assets/jumbotron-narrow.css" rel="stylesheet">
     <script src="/vnpay_php/assets/jquery-1.11.3.min.js"></script>
-    <meta http-equiv="refresh" content="5;url=index.php">
+    <meta http-equiv="refresh" content="5;url=home.php">
 </head>
 
 <body>

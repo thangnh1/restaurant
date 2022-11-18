@@ -142,8 +142,8 @@ if ($row['order_status'] == '0') {
                         <div class="form-group">
                             <h3 style="color: red; ">Trạng thái thanh toán : <?php echo 'Chưa thanh toán' ?> </h3>
                         </div>
-                        <button type="submit" class="btn btn-primary" id="btnPopup">Thanh toán Post</button>
-                        <button type="submit" name="redirect" id="redirect" class="btn btn-default">Thanh toán</button>
+                        <!-----<button type="submit" class="btn btn-primary" id="btnPopup">Thanh toán Post</button>--->
+                        <button type="submit" name="redirect" id="redirect" class="btn btn-primary">Thanh toán</button>
                     <?php } else { ?>
                         <div class="form-group">
                             <h3>Trạng thái thanh toán : <?php echo 'Đã thanh toán' ?></h3>
@@ -162,7 +162,7 @@ if ($row['order_status'] == '0') {
         <?php } ?>
 
         <footer class="footer">
-            <a href="../index.php"><button class="btn btn-primary">Trở về Trang chủ</button></a>
+            <a href="../home.php"><button class="btn btn-primary">Trở về Trang chủ</button></a>
         </footer>
         </div>
 

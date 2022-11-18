@@ -64,7 +64,7 @@ if (isset($_SESSION['donhang'])) {
     } else { ?>
         <tr>
             <td colspan="7">
-                <p>Hiện tại chưa có món ăn trong giỏ hàng!</p>
+                <p>Hiện tại chưa có đơn hàng được tạo!</p>
             </td>
         </tr>
     <?php } ?>
