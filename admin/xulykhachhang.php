@@ -26,7 +26,18 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 //$sql_update_donhang = mysqli_query($con, "UPDATE tbl_donhang SET huydon='$huydon' WHERE madonhang='$magiaodich'");
 
 //$sql_update_giaodich = mysqli_query($con, "UPDATE tbl_giaodich SET huydon='$huydon' WHERE magiaodich='$magiaodich'");
-
+if (!isset($_SESSION['login'])) {
+    header('Location: index.php');
+}
+if (isset($_GET['loginn'])) {
+    $logout = $_GET['loginn'];
+} else {
+    $logout = '';
+}
+if ($logout == 'logout') {
+    session_destroy();
+    header('Location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +45,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Đơn hàng</title>
-	<link href="../assets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
@@ -100,7 +111,7 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 			<div class="col-md-12">
 				<h4 align="center">DANH SÁCH TẤT CẢ KHÁCH HÀNG</h4>
 				<?php
-				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_acckh ");
+				$sql_acckh = mysqli_query($con, "SELECT * FROM tbl_user_account ");
 				?>
 				<table class="table table-bordered ">
 							<tr>
@@ -117,11 +128,11 @@ if (isset($_GET['xacnhanhuy']) && isset($_GET['madonhang'])) {
 							?>
 								<tr>
 									<td><?php echo $i; ?></td>
-									<td><?php echo $row_kh['kh_fullname']; ?></td>
-									<td><?php echo $row_kh['kh_sdt']; ?></td>
-									<td><?php echo $row_kh['kh_email']; ?></td>
-									<td><?php echo $row_kh['kh_user']; ?></td>										
-									<input type="hidden" name="mahang_xuly" value="<?php echo $row_donhang['madonhang'] ?>">
+									<td><?php echo $row_kh['fullname']; ?></td>
+									<td><?php echo $row_kh['phone_number']; ?></td>
+									<td><?php echo $row_kh['email']; ?></td>
+									<td><?php echo $row_kh['username']; ?></td>										
+									
 								</tr>
 							<?php
 							}
