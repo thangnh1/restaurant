@@ -2,6 +2,8 @@
 
 ## Introduction
 
+Website ordering food and booking table for restaurants using PHP core, mySQL.
+
 ## How to use my project
 
 Step 1 : Clone my project
